@@ -38,3 +38,6 @@ jobs:
           registry: ghcr.io
           username: ber01
           password: ${{ secrets.CR_TOKEN }}
+
+      - name: Docker image Push
+        run: docker push ghcr.io/ber01/lo-gak-gye:latest
