@@ -30,4 +30,4 @@ jobs:
           arguments: build
 
       - name: Docker image Build
-        run: docker build -t ghcr.io/ber01/lo-gak-gye:latest
+        run: docker build -t ghcr.io/ber01/lo-gak-gye:latest .
