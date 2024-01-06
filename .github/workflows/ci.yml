@@ -63,6 +63,15 @@ jobs:
       - name: Docker image Push
         run: docker push ghcr.io/ber01/lo-gak-gye:latest
 
+      # EC2에 접근하여 배포
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_SSH_HOST_NAME }}
+          username: ${{ secrets.EC2_SSH_USER }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          script: ./deploy.sh
+
       # GitHub Actions VM 환경의 IP를 인바운드 규칙에서 제거한다.
       - name: Remove GitHub Actions IP
         run: |
@@ -71,14 +80,3 @@ jobs:
               --protocol tcp \
               --port 22 \
               --cidr ${{ steps.ip.outputs.ipv4 }}/32
-
-# 3번, 인바운드 관련 이슈가 해결되지 않아 실행이 불가능하다.
-#      - name: Connect to EC2
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.EC2_SSH_HOST_NAME }}
-#          username: ${{ secrets.EC2_SSH_USER }}
-#          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-#          script: |
-#            whoami
-#            docker ps -a
