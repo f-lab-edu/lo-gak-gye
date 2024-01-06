@@ -42,12 +42,21 @@ jobs:
       - name: Docker image Push
         run: docker push ghcr.io/ber01/lo-gak-gye:latest
 
-      - name: Connect to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_SSH_HOST_NAME }}
-          username: ${{ secrets.EC2_SSH_USER }}
-          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          script: |
-            whoami
-            docker ps -a
+      - name: Get Public IP
+        id: ip
+        uses: haythem/public-ip@v1.3
+
+      - name: Print Public IP
+        run: |
+          echo ${{ steps.ip.outputs.ipv4 }}
+
+# 3번, 인바운드 관련 이슈가 해결되지 않아 실행이 불가능하다.
+#      - name: Connect to EC2
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.EC2_SSH_HOST_NAME }}
+#          username: ${{ secrets.EC2_SSH_USER }}
+#          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+#          script: |
+#            whoami
+#            docker ps -a
