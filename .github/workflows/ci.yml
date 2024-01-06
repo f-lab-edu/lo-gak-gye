@@ -46,9 +46,19 @@ jobs:
         id: ip
         uses: haythem/public-ip@v1.3
 
-      - name: Print Public IP
-        run: |
-          echo ${{ steps.ip.outputs.ipv4 }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'ap-northeast-2'
+
+      - name: Add GitHub Actions IP
+        run: aws ec2 authorize-security-group-ingress \
+                  --group-id ${{ secrets.SECURITY_GROUP_ID }} \
+                  --protocol tcp \
+                  --port 22 \
+                  --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
 # 3번, 인바운드 관련 이슈가 해결되지 않아 실행이 불가능하다.
 #      - name: Connect to EC2
