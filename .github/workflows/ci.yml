@@ -41,3 +41,13 @@ jobs:
 
       - name: Docker image Push
         run: docker push ghcr.io/ber01/lo-gak-gye:latest
+
+      - name: Connect to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_SSH_HOST_NAME }}
+          username: ${{ secrets.EC2_SSH_USER }}
+          key: ${{ EC2_SSH_PRIVATE_KEY }}
+          script: |
+            whoami
+            docker ps -a
