@@ -19,7 +19,7 @@ public class HomeController {
     // 이미지 빌드 체크용 메서드
     @GetMapping("/check")
     public String check() {
-        int num = 0;
+        int num = 1;
         return "check" + num;
     }
 }
