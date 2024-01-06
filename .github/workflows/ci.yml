@@ -47,7 +47,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_SSH_HOST_NAME }}
           username: ${{ secrets.EC2_SSH_USER }}
-          key: ${{ EC2_SSH_PRIVATE_KEY }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             whoami
             docker ps -a
