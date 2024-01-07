@@ -18,11 +18,13 @@ jobs:
       # 소스코드 체크아웃
       - uses: actions/checkout@v3
 
+      # application.properties 복사
       - name: Copy Application Properties
         run: |
           mkdir -p ./src/main/resources/
           echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
 
+      # GitHub Actions VM 환경의 IP 받아오기
       - name: Get Public IP
         id: ip
         uses: haythem/public-ip@v1.3
@@ -42,11 +44,19 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
+      # 테스트용 MySQL 시작
+      - name: Start MySQL
+        run: docker-compose up -d
+
       # 빌드
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           arguments: build
+
+      # 테스트용 MySQL 종료
+      - name: Shutdown MySQL
+        run: docker-compose down
 
       # 이미지 빌드
       - name: Docker image Build
@@ -61,6 +71,7 @@ jobs:
               --port 22 \
               --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
+      # 컨테이너 레지스트리 로그인
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -68,6 +79,7 @@ jobs:
           username: ber01
           password: ${{ secrets.CR_TOKEN }}
 
+      # 이미지 푸시
       - name: Docker image Push
         run: docker push ghcr.io/ber01/lo-gak-gye:latest
 
