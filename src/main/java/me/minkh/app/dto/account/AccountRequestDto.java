@@ -8,7 +8,11 @@ import me.minkh.app.domain.account.Account;
 @Getter
 public class AccountRequestDto {
 
-    private String name;
+    private final String name;
+
+    public AccountRequestDto(String name) {
+        this.name = name;
+    }
 
     public Account toEntity() {
         return Account.builder()
