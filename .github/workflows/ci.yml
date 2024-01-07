@@ -44,14 +44,6 @@ jobs:
               --port 22 \
               --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-      - name: Add GitHub Actions IP
-        run: |
-          aws ec2 authorize-security-group-ingress \
-              --group-id ${{ secrets.SECURITY_GROUP_ID }} \
-              --protocol tcp \
-              --port 3306 \
-              --cidr ${{ steps.ip.outputs.ipv4 }}/32
-
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -92,12 +84,4 @@ jobs:
               --group-id ${{ secrets.SECURITY_GROUP_ID }} \
               --protocol tcp \
               --port 22 \
-              --cidr ${{ steps.ip.outputs.ipv4 }}/32
-
-      - name: Add GitHub Actions IP
-        run: |
-          aws ec2 revoke-security-group-ingress \
-              --group-id ${{ secrets.SECURITY_GROUP_ID }} \
-              --protocol tcp \
-              --port 3306 \
               --cidr ${{ steps.ip.outputs.ipv4 }}/32
