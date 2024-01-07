@@ -26,7 +26,7 @@ public class AccountController {
 
     @GetMapping("/{id}")
     public AccountResponseDto findById(@PathVariable("id") Long id) {
-        Account account = this.accountRepository.findById(id).orElseThrow(() -> new RuntimeException(id + "가 없습니다."));
+        Account account = this.accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(id + "가 없습니다."));
         return new AccountResponseDto(account);
     }
 
