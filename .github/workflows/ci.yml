@@ -18,6 +18,10 @@ jobs:
       # 소스코드 체크아웃
       - uses: actions/checkout@v3
 
+      - name: Copy Application Properties
+        run: |
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
+
       - name: Get Public IP
         id: ip
         uses: haythem/public-ip@v1.3
