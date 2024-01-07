@@ -8,7 +8,10 @@ import me.minkh.app.domain.account.Account;
 @Getter
 public class AccountRequestDto {
 
-    private final String name;
+    private String name;
+
+    public AccountRequestDto() {
+    }
 
     public AccountRequestDto(String name) {
         this.name = name;
