@@ -23,7 +23,7 @@ public class ControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        ErrorResponse errorResponse = new ErrorResponse(status.value(), "Bean Validation Error");
+        ErrorResponse errorResponse = new ErrorResponse(status.value(), "Method Argument Not Valid");
         e.getAllErrors().forEach(error -> {
             String field = ((FieldError) error).getField();
             String defaultMessage = error.getDefaultMessage();
