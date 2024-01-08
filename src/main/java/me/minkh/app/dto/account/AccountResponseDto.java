@@ -10,8 +10,11 @@ public class AccountResponseDto {
 
     private final String name;
 
+    private final String apiKey;
+
     public AccountResponseDto(Account account) {
         this.id = account.getId();
         this.name = account.getName();
+        this.apiKey = account.getApiKey();
     }
 }

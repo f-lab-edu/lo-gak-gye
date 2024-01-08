@@ -19,7 +19,7 @@ class AccountControllerTest {
 
     @Test
     void test() {
-        AccountRequestDto dto = new AccountRequestDto("test");
+        AccountRequestDto dto = new AccountRequestDto("test", "ABCDEFGHIJKLMNOP");
         Account account = accountController.save(dto);
 
         assertThat(account.getId()).isEqualTo(1L);
