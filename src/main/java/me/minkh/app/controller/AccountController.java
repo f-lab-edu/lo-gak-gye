@@ -1,5 +1,6 @@
 package me.minkh.app.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import me.minkh.app.domain.account.Account;
 import me.minkh.app.domain.account.AccountRepository;
@@ -19,7 +20,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public Account save(@RequestBody AccountRequestDto accountRequestDto) {
+    public Account save(@Valid @RequestBody AccountRequestDto accountRequestDto) {
         return this.accountRepository.save(accountRequestDto.toEntity());
     }
 
