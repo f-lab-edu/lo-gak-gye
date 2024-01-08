@@ -15,6 +15,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> illegalArgumentExceptionHandler(IllegalArgumentException e) {
+        log.error("illegalArgumentExceptionHandler", e);
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorResponse errorResponse = new ErrorResponse(status.value(), e.getMessage());
         return new ResponseEntity<>(errorResponse, status);
@@ -22,6 +23,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        log.error("methodArgumentNotValidExceptionHandler", e);
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorResponse errorResponse = new ErrorResponse(status.value(), "Method Argument Not Valid");
         e.getAllErrors().forEach(error -> {
