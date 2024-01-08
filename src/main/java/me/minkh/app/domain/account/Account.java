@@ -1,9 +1,14 @@
 package me.minkh.app.domain.account;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Entity
 public class Account {
@@ -13,15 +18,6 @@ public class Account {
 
     private String name;
 
-    private String key;
-
-    public Account() {
-    }
-
-    @Builder
-    public Account(Long id, String name, String key) {
-        this.id = id;
-        this.name = name;
-        this.key = key;
-    }
+    private String apiKey;
 }
+
