@@ -1,9 +1,6 @@
 package me.minkh.app.domain.account;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,13 +13,15 @@ public class Account {
 
     private String name;
 
+    private String key;
+
     public Account() {
     }
 
     @Builder
-    public Account(Long id, String name) {
+    public Account(Long id, String name, String key) {
         this.id = id;
         this.name = name;
+        this.key = key;
     }
-
 }

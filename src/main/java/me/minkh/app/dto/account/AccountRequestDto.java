@@ -10,6 +10,8 @@ public class AccountRequestDto {
 
     private String name;
 
+    private String key;
+
     public AccountRequestDto() {
     }
 
@@ -20,6 +22,7 @@ public class AccountRequestDto {
     public Account toEntity() {
         return Account.builder()
                 .name(this.name)
+                .key((this.key))
                 .build();
     }
 }
