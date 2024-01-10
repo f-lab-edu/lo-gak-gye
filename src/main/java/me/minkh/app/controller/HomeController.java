@@ -1,10 +1,18 @@
 package me.minkh.app.controller;
 
+import me.minkh.app.service.LostArkApiService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
+
+    private final LostArkApiService lostArkApiService;
+
+    public HomeController(LostArkApiService lostArkApiService) {
+        this.lostArkApiService = lostArkApiService;
+    }
 
     @GetMapping("/")
     public String home() {
@@ -21,5 +29,10 @@ public class HomeController {
     public String check() {
         int num = 3;
         return "check" + num;
+    }
+
+    @GetMapping("/info/{characterName}")
+    public String getProfiles(@PathVariable("characterName") String characterName) {
+        return this.lostArkApiService.getProfiles(characterName);
     }
 }
