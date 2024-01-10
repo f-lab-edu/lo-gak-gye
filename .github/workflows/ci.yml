@@ -23,6 +23,7 @@ jobs:
         run: |
           mkdir -p ./src/main/resources/
           echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
+          echo "${{ secrets.APPLICATION_TEST_PROPERTIES }}" > ./src/main/resources/application-test.properties
 
       # GitHub Actions VM 환경의 IP 받아오기
       - name: Get Public IP
