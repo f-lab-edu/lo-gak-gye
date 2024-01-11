@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Slf4j
 @RestControllerAdvice
@@ -36,6 +37,14 @@ public class ControllerAdvice {
     public ResponseEntity<ErrorResponse> illegalStateExceptionHandler(IllegalStateException e) {
         log.error("illegalStateExceptionHandler", e);
         return this.exceptionHandler(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<ErrorResponse> httpClientErrorExceptionHandler(HttpClientErrorException e) {
+        log.error("httpClientErrorException", e);
+        HttpStatus httpStatus = (HttpStatus) e.getStatusCode();
+        // TODO: 이후에 message 처리 방법을 고려해 봐야 한다.
+        return this.exceptionHandler(e, httpStatus, e.getMessage());
     }
 
     private ResponseEntity<ErrorResponse> exceptionHandler(Exception e, HttpStatus status, String message) {
