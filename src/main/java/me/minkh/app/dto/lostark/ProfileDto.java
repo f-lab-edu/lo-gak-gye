@@ -1,6 +1,6 @@
 package me.minkh.app.dto.lostark;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 
 import java.util.List;
@@ -8,81 +8,81 @@ import java.util.List;
 @Getter
 public class ProfileDto {
 
-    @JsonProperty("CharacterImage")
+    @JsonAlias("CharacterImage")
     private String characterImage;
 
-    @JsonProperty("ExpeditionLevel")
+    @JsonAlias("ExpeditionLevel")
     private int expeditionLevel;
 
-    @JsonProperty("PvpGradeName")
+    @JsonAlias("PvpGradeName")
     private String pvpGradeName;
 
-    @JsonProperty("TownLevel")
+    @JsonAlias("TownLevel")
     private int townLevel;
 
-    @JsonProperty("TownName")
+    @JsonAlias("TownName")
     private String townName;
 
-    @JsonProperty("Title")
+    @JsonAlias("Title")
     private String title;
 
-    @JsonProperty("GuildMemberGrade")
+    @JsonAlias("GuildMemberGrade")
     private String guildMemberGrade;
 
-    @JsonProperty("GuildName")
+    @JsonAlias("GuildName")
     private String guildName;
 
-    @JsonProperty("UsingSkillPoint")
+    @JsonAlias("UsingSkillPoint")
     private int usingSkillPoint;
 
-    @JsonProperty("TotalSkillPoint")
+    @JsonAlias("TotalSkillPoint")
     private int totalSkillPoint;
 
-    @JsonProperty("Stats")
+    @JsonAlias("Stats")
     private List<Stat> stats;
 
-    @JsonProperty("Tendencies")
+    @JsonAlias("Tendencies")
     private List<Tendency> tendencies;
 
-    @JsonProperty("ServerName")
+    @JsonAlias("ServerName")
     private String serverName;
 
-    @JsonProperty("CharacterName")
+    @JsonAlias("CharacterName")
     private String characterName;
 
-    @JsonProperty("CharacterLevel")
+    @JsonAlias("CharacterLevel")
     private int characterLevel;
 
-    @JsonProperty("CharacterClassName")
+    @JsonAlias("CharacterClassName")
     private String characterClassName;
 
-    @JsonProperty("ItemAvgLevel")
+    @JsonAlias("ItemAvgLevel")
     private String itemAvgLevel;
 
-    @JsonProperty("ItemMaxLevel")
+    @JsonAlias("ItemMaxLevel")
     private String itemMaxLevel;
 
     @Getter
     static class Stat {
-        @JsonProperty("Type")
+        @JsonAlias("Type")
         private String type;
 
-        @JsonProperty("Value")
+        @JsonAlias("Value")
         private String value;
 
-        @JsonProperty("Tooltip")
+        @JsonAlias("Tooltip")
         private List<String> tooltip;
     }
 
     @Getter
     static class Tendency {
-        @JsonProperty("Type")
+        @JsonAlias("Type")
         private String type;
 
-        @JsonProperty("Point")
+        @JsonAlias("Point")
         private int point;
 
-        @JsonProperty("MaxPoint")
+        @JsonAlias("MaxPoint")
         private int maxPoint;
     }
 }
