@@ -19,8 +19,15 @@ import java.util.Objects;
 @Service
 public class LostArkApiService {
 
-    @Value("${token}")
+    @Value("${lost-ark-api-url}")
+    private String baseUrl;
+
+    @Value("${lost-ark-api-token}")
     private String token;
+
+    private static final String AUTHORIZATION = "Authorization";
+
+    private static final String BEARER = "Bearer ";
 
     private final RestTemplate restTemplate;
 
@@ -32,10 +39,10 @@ public class LostArkApiService {
     }
 
     public ProfileDto getProfiles(String characterName) {
-        String url = "https://developer-lostark.game.onstove.com/armories/characters/" + characterName + "/profiles";
+        String url = this.baseUrl + characterName + "/profiles";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + token);
+        headers.set(AUTHORIZATION, BEARER + token);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
