@@ -1,5 +1,8 @@
 package me.minkh.app.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import me.minkh.app.dto.lostark.ProfileDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,11 +18,14 @@ public class LostArkApiService {
 
     private final RestTemplate restTemplate;
 
-    public LostArkApiService(RestTemplate restTemplate) {
+    private final ObjectMapper objectMapper;
+
+    public LostArkApiService(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
     }
 
-    public String getProfiles(String characterName) {
+    public ProfileDto getProfiles(String characterName) {
         String url = "https://developer-lostark.game.onstove.com/armories/characters/" + characterName + "/profiles";
 
         HttpHeaders headers = new HttpHeaders();
@@ -27,6 +33,12 @@ public class LostArkApiService {
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        return this.restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
+        String body = this.restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
+
+        try {
+            return this.objectMapper.readValue(body, ProfileDto.class);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("JSON 처리에 실패하였습니다.", e);
+        }
     }
 }
