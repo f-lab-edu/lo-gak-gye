@@ -1,6 +1,7 @@
 package me.minkh.app.exception.advice;
 
 import lombok.extern.slf4j.Slf4j;
+import me.minkh.app.exception.CharacterNotFoundException;
 import me.minkh.app.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Slf4j
 @RestControllerAdvice
@@ -23,6 +25,26 @@ public class ControllerAdvice {
     public ResponseEntity<ErrorResponse> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         log.error("methodArgumentNotValidExceptionHandler", e);
         return this.exceptionHandler(e, HttpStatus.BAD_REQUEST, "Method Argument Not Valid");
+    }
+
+    @ExceptionHandler(CharacterNotFoundException.class)
+    public ResponseEntity<ErrorResponse> characterNotFoundExceptionHandler(CharacterNotFoundException e) {
+        log.error("characterNotFoundExceptionHandler", e);
+        return this.exceptionHandler(e, HttpStatus.NOT_FOUND, e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> illegalStateExceptionHandler(IllegalStateException e) {
+        log.error("illegalStateExceptionHandler", e);
+        return this.exceptionHandler(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<ErrorResponse> httpClientErrorExceptionHandler(HttpClientErrorException e) {
+        log.error("httpClientErrorException", e);
+        HttpStatus httpStatus = (HttpStatus) e.getStatusCode();
+        // TODO: 이후에 message 처리 방법을 고려해 봐야 한다.
+        return this.exceptionHandler(e, httpStatus, e.getMessage());
     }
 
     private ResponseEntity<ErrorResponse> exceptionHandler(Exception e, HttpStatus status, String message) {
