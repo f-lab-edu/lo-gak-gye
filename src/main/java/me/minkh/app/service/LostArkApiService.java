@@ -2,6 +2,7 @@ package me.minkh.app.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import me.minkh.app.dto.lostark.ProfileDto;
 import me.minkh.app.exception.CharacterNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
 
+@Slf4j
 @Service
 public class LostArkApiService {
 
@@ -47,7 +49,8 @@ public class LostArkApiService {
         try {
             return this.objectMapper.readValue(body, ProfileDto.class);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("JSON 처리에 실패하였습니다.", e);
+            log.error("JsonProcessingException", e);
+            return null;
         }
     }
 }

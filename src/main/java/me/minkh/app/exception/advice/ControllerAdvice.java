@@ -39,12 +39,6 @@ public class ControllerAdvice {
         return this.exceptionHandler(e, HttpStatus.NOT_FOUND, e.getMessage());
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<ErrorResponse> illegalStateExceptionHandler(IllegalStateException e) {
-        log.error("illegalStateExceptionHandler", e);
-        return this.exceptionHandler(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-    }
-
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<ErrorResponse> httpClientErrorExceptionHandler(HttpClientErrorException e) {
         log.error("httpClientErrorException", e);
