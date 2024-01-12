@@ -1,4 +1,4 @@
-package me.minkh.app.service;
+package me.minkh.app.service.converter;
 
 import me.minkh.app.dto.lostark.CharacterStat;
 import me.minkh.app.dto.lostark.ProfileDto;

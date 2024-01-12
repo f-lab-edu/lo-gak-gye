@@ -1,4 +1,4 @@
-package me.minkh.app.service;
+package me.minkh.app.service.converter;
 
 import lombok.extern.slf4j.Slf4j;
 import me.minkh.app.dto.lostark.CharacterEquipment;
