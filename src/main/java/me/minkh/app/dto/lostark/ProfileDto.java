@@ -68,7 +68,7 @@ public class ProfileDto {
         private String type;
 
         @JsonAlias("Value")
-        private String value;
+        private int value;
 
         @JsonAlias("Tooltip")
         private List<String> tooltip;
