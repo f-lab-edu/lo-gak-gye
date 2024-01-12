@@ -16,7 +16,7 @@ public class EngravingsDto {
     private List<Effect> effects;
 
     @Getter
-    static class Effect {
+    public static class Effect {
 
         @JsonAlias("Icon")
         private String icon;
@@ -29,7 +29,7 @@ public class EngravingsDto {
     }
 
     @Getter
-    static class Engraving {
+    public static class Engraving {
 
         @JsonAlias("Slot")
         private int slot;
