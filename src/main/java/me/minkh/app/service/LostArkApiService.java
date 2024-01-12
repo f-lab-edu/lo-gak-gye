@@ -2,6 +2,7 @@ package me.minkh.app.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import me.minkh.app.dto.lostark.ProfileDto;
 import me.minkh.app.exception.CharacterNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,11 +15,19 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
 
+@Slf4j
 @Service
 public class LostArkApiService {
 
-    @Value("${token}")
+    @Value("${lost-ark-api-url}")
+    private String baseUrl;
+
+    @Value("${lost-ark-api-token}")
     private String token;
+
+    private static final String AUTHORIZATION = "Authorization";
+
+    private static final String BEARER = "Bearer ";
 
     private final RestTemplate restTemplate;
 
@@ -30,10 +39,10 @@ public class LostArkApiService {
     }
 
     public ProfileDto getProfiles(String characterName) {
-        String url = "https://developer-lostark.game.onstove.com/armories/characters/" + characterName + "/profiles";
+        String url = this.baseUrl + characterName + "/profiles";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + token);
+        headers.set(AUTHORIZATION, BEARER + token);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
@@ -47,7 +56,8 @@ public class LostArkApiService {
         try {
             return this.objectMapper.readValue(body, ProfileDto.class);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("JSON 처리에 실패하였습니다.", e);
+            log.error("JsonProcessingException", e);
+            return null;
         }
     }
 }

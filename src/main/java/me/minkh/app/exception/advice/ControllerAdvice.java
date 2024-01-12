@@ -15,6 +15,12 @@ import org.springframework.web.client.HttpClientErrorException;
 @RestControllerAdvice
 public class ControllerAdvice {
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> runtimeExceptionHandler(RuntimeException e) {
+        log.error("runtimeExceptionHandler", e);
+        return this.exceptionHandler(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> illegalArgumentExceptionHandler(IllegalArgumentException e) {
         log.error("illegalArgumentExceptionHandler", e);
@@ -31,12 +37,6 @@ public class ControllerAdvice {
     public ResponseEntity<ErrorResponse> characterNotFoundExceptionHandler(CharacterNotFoundException e) {
         log.error("characterNotFoundExceptionHandler", e);
         return this.exceptionHandler(e, HttpStatus.NOT_FOUND, e.getMessage());
-    }
-
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<ErrorResponse> illegalStateExceptionHandler(IllegalStateException e) {
-        log.error("illegalStateExceptionHandler", e);
-        return this.exceptionHandler(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
