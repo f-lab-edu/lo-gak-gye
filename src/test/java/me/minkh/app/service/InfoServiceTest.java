@@ -5,6 +5,7 @@ import me.minkh.app.dto.info.InfoResponseDto;
 import me.minkh.app.dto.lostark.EngravingsDto;
 import me.minkh.app.dto.lostark.EquipmentDto;
 import me.minkh.app.dto.lostark.ProfileDto;
+import me.minkh.app.service.info.InfoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class HomeServiceTest {
+class InfoServiceTest {
 
     String path = "src/test/java/me/minkh/app/";
 
@@ -29,7 +30,7 @@ class HomeServiceTest {
     ObjectMapper objectMapper;
 
     @Autowired
-    HomeService homeService;
+    InfoService homeService;
 
     @MockBean
     LostArkApiService lostArkApiService;

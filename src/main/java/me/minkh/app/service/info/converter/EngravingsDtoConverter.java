@@ -1,4 +1,4 @@
-package me.minkh.app.service.converter;
+package me.minkh.app.service.info.converter;
 
 import me.minkh.app.dto.info.EngravingResponseDto;
 import me.minkh.app.dto.lostark.EngravingsDto;

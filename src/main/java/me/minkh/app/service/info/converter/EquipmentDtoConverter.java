@@ -1,4 +1,4 @@
-package me.minkh.app.service.converter;
+package me.minkh.app.service.info.converter;
 
 import lombok.extern.slf4j.Slf4j;
 import me.minkh.app.dto.info.EquipmentResponseDto;

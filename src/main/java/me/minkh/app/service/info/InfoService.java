@@ -1,23 +1,24 @@
-package me.minkh.app.service;
+package me.minkh.app.service.info;
 
 import lombok.RequiredArgsConstructor;
-import me.minkh.app.dto.info.InfoResponseDto;
 import me.minkh.app.dto.info.EngravingResponseDto;
-import me.minkh.app.dto.lostark.EngravingsDto;
 import me.minkh.app.dto.info.EquipmentResponseDto;
+import me.minkh.app.dto.info.InfoResponseDto;
+import me.minkh.app.dto.info.ProfileStatResponseDto;
+import me.minkh.app.dto.lostark.EngravingsDto;
 import me.minkh.app.dto.lostark.EquipmentDto;
 import me.minkh.app.dto.lostark.ProfileDto;
-import me.minkh.app.dto.info.ProfileStatResponseDto;
-import me.minkh.app.service.converter.EngravingsDtoConverter;
-import me.minkh.app.service.converter.EquipmentDtoConverter;
-import me.minkh.app.service.converter.ProfileDtoConverter;
+import me.minkh.app.service.LostArkApiService;
+import me.minkh.app.service.info.converter.EngravingsDtoConverter;
+import me.minkh.app.service.info.converter.EquipmentDtoConverter;
+import me.minkh.app.service.info.converter.ProfileDtoConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class HomeService {
+public class InfoService {
 
     private final LostArkApiService lostArkApiService;
     private final EquipmentDtoConverter equipmentDtoConverter;
