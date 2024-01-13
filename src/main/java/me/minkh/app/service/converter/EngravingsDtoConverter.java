@@ -1,38 +1,40 @@
 package me.minkh.app.service.converter;
 
-import me.minkh.app.dto.lostark.CharacterEngraving;
+import me.minkh.app.dto.info.EngravingResponseDto;
 import me.minkh.app.dto.lostark.EngravingsDto;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EngravingsDtoConverter {
 
-    private static final String CURSED_DOLL  = "저주받은 인형";
+    private static final String CURSED_DOLL = "저주받은 인형";
     private static final String ADRENALINE = "아드레날린";
 
-    public CharacterEngraving convert(EngravingsDto dto) {
+    public List<EngravingResponseDto> convert(EngravingsDto dto) {
         if (dto == null) {
-            return new CharacterEngraving(0, 0);
+            return new ArrayList<>();
         }
 
-        String[] engravings = dto.getEffects().stream().map(EngravingsDto.Effect::getName).toArray(String[]::new);
-
-        CharacterEngraving characterEngraving = new CharacterEngraving();
+        List<EngravingResponseDto> dtos = new ArrayList<>();
+        List<String> engravings = getEngravings(dto);
         for (String engraving : engravings) {
             String[] array = engraving.split("Lv.");
             String name = array[0].trim();
             int level = Integer.parseInt(array[1].trim());
-
             if (isValid(name)) {
-                if (isCursedDoll(name)) {
-                    characterEngraving.setCursedDoll(level);
-                } else {
-                    characterEngraving.setAdrenaline(level);
-                }
+                dtos.add(new EngravingResponseDto(name, level));
             }
         }
+        return dtos;
+    }
 
-        return characterEngraving;
+    private List<String> getEngravings(EngravingsDto dto) {
+        return dto.getEffects().stream()
+                .map(EngravingsDto.Effect::getName)
+                .toList();
     }
 
     private boolean isValid(String name) {

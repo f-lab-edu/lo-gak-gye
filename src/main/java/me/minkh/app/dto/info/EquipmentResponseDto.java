@@ -1,4 +1,4 @@
-package me.minkh.app.dto.lostark;
+package me.minkh.app.dto.info;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CharacterEquipment {
+public class EquipmentResponseDto {
 
     private String artifact;
 
-    public CharacterEquipment(String artifact) {
+    public EquipmentResponseDto(String artifact) {
         this.artifact = artifact;
     }
 }

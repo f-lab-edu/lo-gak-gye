@@ -1,7 +1,7 @@
 package me.minkh.app.service.converter;
 
 import lombok.extern.slf4j.Slf4j;
-import me.minkh.app.dto.lostark.CharacterEquipment;
+import me.minkh.app.dto.info.EquipmentResponseDto;
 import me.minkh.app.dto.lostark.EquipmentDto;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ public class EquipmentDtoConverter {
 
     private final String[] words = { "악몽", "구원", "지배", "사멸", "환각" };
 
-    public CharacterEquipment convert(EquipmentDto[] dtoList) {
+    public EquipmentResponseDto convert(EquipmentDto[] dtoList) {
         if (dtoList == null) {
-            return new CharacterEquipment(null);
+            return new EquipmentResponseDto(null);
         }
 
         List<EquipmentDto> list = Arrays.stream(dtoList)
@@ -39,10 +39,10 @@ public class EquipmentDtoConverter {
         }
 
         if (set.size() != 1) {
-            return new CharacterEquipment(null);
+            return new EquipmentResponseDto(null);
         }
 
         String name = set.stream().findFirst().orElse(null);
-        return new CharacterEquipment(name);
+        return new EquipmentResponseDto(name);
     }
 }

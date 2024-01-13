@@ -1,28 +1,27 @@
 package me.minkh.app.service.converter;
 
-import me.minkh.app.dto.lostark.CharacterStat;
 import me.minkh.app.dto.lostark.ProfileDto;
+import me.minkh.app.dto.info.ProfileStatResponseDto;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProfileDtoConverter {
 
-    public CharacterStat convert(ProfileDto dto) {
+    public List<ProfileStatResponseDto> convert(ProfileDto dto) {
         if (dto == null) {
-            return new CharacterStat(0, 0);
+            return new ArrayList<>();
         }
 
-        CharacterStat characterStat = new CharacterStat();
+        List<ProfileStatResponseDto> dtos = new ArrayList<>();
         for (ProfileDto.Stat stat : dto.getStats()) {
             if (isValid(stat)) {
-                if (isCritical(stat)) {
-                    characterStat.setCritical(stat.getValue());
-                } else {
-                    characterStat.setSwiftness(stat.getValue());
-                }
+                dtos.add(new ProfileStatResponseDto(stat.getType(), stat.getValue()));
             }
         }
-        return characterStat;
+        return dtos;
     }
 
     private boolean isValid(ProfileDto.Stat stat) {

@@ -1,29 +1,22 @@
 package me.minkh.app.dto.info;
 
 import lombok.Getter;
-import me.minkh.app.dto.lostark.CharacterEngraving;
-import me.minkh.app.dto.lostark.CharacterEquipment;
-import me.minkh.app.dto.lostark.CharacterStat;
+
+import java.util.List;
 
 @Getter
 public class InfoResponseDto {
 
       private final String artifact;
 
-      private final int critical;
+      private final List<ProfileStatResponseDto> profileStats;
 
-      private final int swiftness;
+      private final List<EngravingResponseDto> engravings;
 
-      private final int cursedDoll;
-
-      private final int adrenaline;
-
-      public InfoResponseDto(CharacterEquipment equipment, CharacterStat stat, CharacterEngraving engraving) {
+      public InfoResponseDto(EquipmentResponseDto equipment, List<ProfileStatResponseDto> profileStats, List<EngravingResponseDto> engravings) {
             this.artifact = equipment.getArtifact();
-            this.critical = stat.getCritical();
-            this.swiftness = stat.getSwiftness();
-            this.cursedDoll = engraving.getCursedDoll();
-            this.adrenaline = engraving.getAdrenaline();
+            this.profileStats = profileStats;
+            this.engravings = engravings;
       }
 }
 
