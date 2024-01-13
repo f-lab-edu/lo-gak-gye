@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Objects;
 
@@ -20,12 +20,10 @@ import java.util.Objects;
 public class LostArkApiService {
 
     @Value("${lost-ark-api-url}")
-    private String baseUrl;
+    private String lostArkApiUrl;
 
     @Value("${lost-ark-api-token}")
-    private String token;
-
-    private static final String AUTHORIZATION = "Authorization";
+    private String lostArkApiToken;
 
     private static final String BEARER = "Bearer ";
 
@@ -39,16 +37,17 @@ public class LostArkApiService {
     }
 
     public ProfileDto getProfiles(String characterName) {
-        String url = this.baseUrl + characterName + "/profiles";
+        String url = UriComponentsBuilder.fromHttpUrl(this.lostArkApiUrl)
+                .path(characterName)
+                .path("/profiles")
+                .build()
+                .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set(AUTHORIZATION, BEARER + token);
+        headers.set(HttpHeaders.AUTHORIZATION, BEARER + this.lostArkApiToken);
 
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<String> response = this.restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        String body = response.getBody();
-
+        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+        String body = this.restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class).getBody();
         if (Objects.equals(body, "null")) {
             throw new CharacterNotFoundException(characterName + "에 해당하는 캐릭터가 없습니다.");
         }
