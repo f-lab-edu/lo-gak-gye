@@ -63,19 +63,19 @@ public class ProfileDto {
     private String itemMaxLevel;
 
     @Getter
-    static class Stat {
+    public static class Stat {
         @JsonAlias("Type")
         private String type;
 
         @JsonAlias("Value")
-        private String value;
+        private int value;
 
         @JsonAlias("Tooltip")
         private List<String> tooltip;
     }
 
     @Getter
-    static class Tendency {
+    public static class Tendency {
         @JsonAlias("Type")
         private String type;
 

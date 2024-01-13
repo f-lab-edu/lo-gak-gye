@@ -3,6 +3,8 @@ package me.minkh.app.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import me.minkh.app.dto.lostark.EngravingsDto;
+import me.minkh.app.dto.lostark.EquipmentDto;
 import me.minkh.app.dto.lostark.ProfileDto;
 import me.minkh.app.exception.CharacterNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,26 +39,46 @@ public class LostArkApiService {
     }
 
     public ProfileDto getProfiles(String characterName) {
-        String url = UriComponentsBuilder.fromHttpUrl(this.lostArkApiUrl)
-                .path(characterName)
-                .path("/profiles")
-                .build()
-                .toUriString();
+        return callApi(characterName, "/profiles", ProfileDto.class);
+    }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.AUTHORIZATION, BEARER + this.lostArkApiToken);
+    public EngravingsDto getEngravings(String characterName) {
+        return callApi(characterName, "/engravings", EngravingsDto.class);
+    }
 
-        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+    public EquipmentDto[] getEquipment(String characterName) {
+        return callApi(characterName, "/equipment", EquipmentDto[].class);
+    }
+
+    private <T> T callApi(String characterName, String path, Class<T> clazz) {
+        String url = getUrl(characterName, path);
+
+        HttpEntity<String> httpEntity = getHttpEntity();
+
         String body = this.restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class).getBody();
         if (Objects.equals(body, "null")) {
             throw new CharacterNotFoundException(characterName + "에 해당하는 캐릭터가 없습니다.");
         }
 
         try {
-            return this.objectMapper.readValue(body, ProfileDto.class);
+            return this.objectMapper.readValue(body, clazz);
         } catch (JsonProcessingException e) {
             log.error("JsonProcessingException", e);
             return null;
         }
+    }
+
+    private HttpEntity<String> getHttpEntity() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.AUTHORIZATION, BEARER + this.lostArkApiToken);
+        return new HttpEntity<>(headers);
+    }
+
+    private String getUrl(String characterName, String path) {
+        return UriComponentsBuilder.fromHttpUrl(this.lostArkApiUrl)
+                .path(characterName)
+                .path(path)
+                .build()
+                .toUriString();
     }
 }
