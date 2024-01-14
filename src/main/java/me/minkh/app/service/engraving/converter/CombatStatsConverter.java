@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
-import me.minkh.app.dto.engraving.EngravingStat;
-import me.minkh.app.dto.engraving.ProfileStat;
+import me.minkh.app.dto.engraving.CombatAttributeDto;
+import me.minkh.app.dto.engraving.request.CombatStats;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,13 +10,13 @@ import static me.minkh.app.service.LostArkConstants.CRITICAL;
 import static me.minkh.app.service.LostArkConstants.SWIFTNESS;
 
 @Service
-public class ProfileStatsConverter {
+public class CombatStatsConverter {
 
-    public EngravingStat convert(List<ProfileStat> profileStats) {
-        EngravingStat stat = new EngravingStat();
-        for (ProfileStat profileStat : profileStats) {
-            String type = profileStat.getType();
-            int value = profileStat.getValue();
+    public CombatAttributeDto convert(List<CombatStats> combatStats) {
+        CombatAttributeDto stat = new CombatAttributeDto();
+        for (CombatStats combatStat : combatStats) {
+            String type = combatStat.getType();
+            int value = combatStat.getValue();
 
             if (type.equals(CRITICAL)) {
                 double criticalHitRate = this.criticalHitRateCalculator(value);

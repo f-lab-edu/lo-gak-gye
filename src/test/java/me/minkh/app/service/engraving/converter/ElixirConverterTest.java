@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
-import me.minkh.app.dto.engraving.Elixir;
-import me.minkh.app.dto.engraving.EngravingStat;
+import me.minkh.app.dto.engraving.request.Elixir;
+import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,10 +27,10 @@ class ElixirConverterTest {
         Elixir elixir = new Elixir("회심", 0, headOffensePower);
 
         // when
-        EngravingStat engravingStat = elixirConverter.convert(elixir);
+        CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
 
         // then
-        assertThat(engravingStat.getAttackIncrease()).isEqualTo(attackIncrease);
+        assertThat(combatAttributeDto.getAttackIncrease()).isEqualTo(attackIncrease);
     }
 
     @DisplayName("선봉대 Lv35 일 때, 머리 + 공격력 3이 누적됨")
@@ -40,10 +40,10 @@ class ElixirConverterTest {
         Elixir elixir = new Elixir("선봉대", 35, 3);
 
         // when
-        EngravingStat engravingStat = elixirConverter.convert(elixir);
+        CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
 
         // then
-        assertThat(engravingStat.getAttackIncrease()).isEqualTo(0.72 + 3.0);
+        assertThat(combatAttributeDto.getAttackIncrease()).isEqualTo(0.72 + 3.0);
     }
 
     @DisplayName("선봉대 Lv40 일 때, 머리 + 공격력 3이 누적됨")
@@ -53,10 +53,10 @@ class ElixirConverterTest {
         Elixir elixir = new Elixir("선봉대", 40, 5);
 
         // when
-        EngravingStat engravingStat = elixirConverter.convert(elixir);
+        CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
 
         // then
-        assertThat(engravingStat.getAttackIncrease()).isEqualTo(1.44 + 3.0);
+        assertThat(combatAttributeDto.getAttackIncrease()).isEqualTo(1.44 + 3.0);
     }
 
     @DisplayName("달인 Lv35 일 때, 치명타 적즁률이 올라가지 않음")
@@ -66,11 +66,11 @@ class ElixirConverterTest {
         Elixir elixir = new Elixir("달인", 35, 3);
 
         // when
-        EngravingStat engravingStat = elixirConverter.convert(elixir);
+        CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
 
         // then
-        assertThat(engravingStat.getAttackIncrease()).isEqualTo(0.72);
-        assertThat(engravingStat.getCriticalHitRate()).isEqualTo(0);
+        assertThat(combatAttributeDto.getAttackIncrease()).isEqualTo(0.72);
+        assertThat(combatAttributeDto.getCriticalHitRate()).isEqualTo(0);
     }
 
     @DisplayName("달인 Lv40 일 때, 치명타 적즁률이 7 올라감")
@@ -80,10 +80,10 @@ class ElixirConverterTest {
         Elixir elixir = new Elixir("달인", 40, 3);
 
         // when
-        EngravingStat engravingStat = elixirConverter.convert(elixir);
+        CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
 
         // then
-        assertThat(engravingStat.getAttackIncrease()).isEqualTo(0.72);
-        assertThat(engravingStat.getCriticalHitRate()).isEqualTo(7);
+        assertThat(combatAttributeDto.getAttackIncrease()).isEqualTo(0.72);
+        assertThat(combatAttributeDto.getCriticalHitRate()).isEqualTo(7);
     }
 }

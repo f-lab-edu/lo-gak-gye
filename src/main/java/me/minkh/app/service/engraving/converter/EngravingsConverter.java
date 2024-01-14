@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
-import me.minkh.app.dto.engraving.Engraving;
-import me.minkh.app.dto.engraving.EngravingStat;
+import me.minkh.app.dto.engraving.request.Engraving;
+import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +11,8 @@ import static me.minkh.app.service.LostArkConstants.*;
 @Service
 public class EngravingsConverter {
 
-    public EngravingStat convert(List<Engraving> engravings) {
-        EngravingStat stat = new EngravingStat();
+    public CombatAttributeDto convert(List<Engraving> engravings) {
+        CombatAttributeDto stat = new CombatAttributeDto();
         for (Engraving engraving : engravings) {
             String name = engraving.getName();
             int level = engraving.getLevel();

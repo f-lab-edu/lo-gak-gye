@@ -1,4 +1,4 @@
-package me.minkh.app.dto.engraving;
+package me.minkh.app.dto.engraving.request;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class CalcEngravingRequestDto {
 
     Elixir elixir;
 
-    List<ProfileStat> profileStats;
+    List<CombatStats> combatStats;
 
     List<Engraving> engravings;
 

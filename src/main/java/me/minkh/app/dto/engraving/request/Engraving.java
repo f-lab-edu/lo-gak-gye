@@ -1,4 +1,4 @@
-package me.minkh.app.dto.engraving;
+package me.minkh.app.dto.engraving.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Elixir {
+public class Engraving {
 
-    private String type;
+    private String name;
 
     private int level;
-
-    private int headOffensePower;
 }

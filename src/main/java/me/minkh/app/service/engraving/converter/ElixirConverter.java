@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
-import me.minkh.app.dto.engraving.Elixir;
-import me.minkh.app.dto.engraving.EngravingStat;
+import me.minkh.app.dto.engraving.request.Elixir;
+import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.springframework.stereotype.Service;
 
 import static me.minkh.app.service.LostArkConstants.*;
@@ -9,8 +9,8 @@ import static me.minkh.app.service.LostArkConstants.*;
 @Service
 public class ElixirConverter {
 
-    public EngravingStat convert(Elixir elixir) {
-        EngravingStat stat = new EngravingStat();
+    public CombatAttributeDto convert(Elixir elixir) {
+        CombatAttributeDto stat = new CombatAttributeDto();
 
         int headOffensePower = elixir.getHeadOffensePower();
         stat.setAttackIncrease(elixirToAttackIncreaseMap.get(headOffensePower));

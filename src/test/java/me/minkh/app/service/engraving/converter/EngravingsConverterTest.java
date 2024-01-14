@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
-import me.minkh.app.dto.engraving.Engraving;
-import me.minkh.app.dto.engraving.EngravingStat;
+import me.minkh.app.dto.engraving.request.Engraving;
+import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -28,10 +28,10 @@ class EngravingsConverterTest {
         List<Engraving> engravings = getEngravings(cursedDollLevel, adrenalineLevel);
 
         // when
-        EngravingStat engravingStat = engravingsConverter.convert(engravings);
+        CombatAttributeDto combatAttributeDto = engravingsConverter.convert(engravings);
 
         // then
-        assertThat(engravingStat.getAttackIncrease()).isEqualTo(expectedAttackIncrease);
+        assertThat(combatAttributeDto.getAttackIncrease()).isEqualTo(expectedAttackIncrease);
     }
 
     @ParameterizedTest
@@ -42,10 +42,10 @@ class EngravingsConverterTest {
         List<Engraving> engravings = getEngravings(0, level);
 
         // when
-        EngravingStat engravingStat = engravingsConverter.convert(engravings);
+        CombatAttributeDto combatAttributeDto = engravingsConverter.convert(engravings);
 
         // then
-        assertThat(engravingStat.getCriticalHitRate()).isEqualTo(level * 5);
+        assertThat(combatAttributeDto.getCriticalHitRate()).isEqualTo(level * 5);
     }
 
     private static Stream<Arguments> method() {

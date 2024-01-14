@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
 
-import me.minkh.app.dto.engraving.EngravingStat;
+import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,10 +19,10 @@ class ArtifactConverterTest {
     @ValueSource(strings = { "악몽", "구원", "지배" })
     void testSuccess1(String artifact) {
         // when
-        EngravingStat result = artifactConverter.convert(artifact);
+        CombatAttributeDto result = artifactConverter.convert(artifact);
 
         // then
-        assertThat(result).isEqualTo(new EngravingStat(0, 0, 0, 0));
+        assertThat(result).isEqualTo(new CombatAttributeDto(0, 0, 0, 0));
     }
 
     @DisplayName("사멸")
@@ -32,10 +32,10 @@ class ArtifactConverterTest {
         String artifact = "사멸";
 
         // when
-        EngravingStat result = artifactConverter.convert(artifact);
+        CombatAttributeDto result = artifactConverter.convert(artifact);
 
         // then
-        assertThat(result).isEqualTo(new EngravingStat(22, 65, 0, 0));
+        assertThat(result).isEqualTo(new CombatAttributeDto(22, 65, 0, 0));
     }
 
     @DisplayName("환각")
@@ -45,10 +45,10 @@ class ArtifactConverterTest {
         String artifact = "환각";
 
         // when
-        EngravingStat result = artifactConverter.convert(artifact);
+        CombatAttributeDto result = artifactConverter.convert(artifact);
 
         // then
-        assertThat(result).isEqualTo(new EngravingStat(28, 0, 0, 0));
+        assertThat(result).isEqualTo(new CombatAttributeDto(28, 0, 0, 0));
     }
 
     @DisplayName("이상한 값")

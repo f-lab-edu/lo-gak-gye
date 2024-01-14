@@ -1,4 +1,4 @@
-package me.minkh.app.dto.engraving;
+package me.minkh.app.dto.engraving.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
