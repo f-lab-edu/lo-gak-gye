@@ -3,9 +3,9 @@ package me.minkh.app.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import me.minkh.app.dto.lostark.EngravingsDto;
-import me.minkh.app.dto.lostark.EquipmentDto;
-import me.minkh.app.dto.lostark.ProfileDto;
+import me.minkh.app.dto.lostark.LostArkEngravingsResponse;
+import me.minkh.app.dto.lostark.LostArkEquipmentResponse;
+import me.minkh.app.dto.lostark.LostArkProfilesResponse;
 import me.minkh.app.exception.CharacterNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -38,16 +38,16 @@ public class LostArkApiService {
         this.objectMapper = objectMapper;
     }
 
-    public ProfileDto getProfiles(String characterName) {
-        return callApi(characterName, "/profiles", ProfileDto.class);
+    public LostArkProfilesResponse getProfiles(String characterName) {
+        return callApi(characterName, "/profiles", LostArkProfilesResponse.class);
     }
 
-    public EngravingsDto getEngravings(String characterName) {
-        return callApi(characterName, "/engravings", EngravingsDto.class);
+    public LostArkEngravingsResponse getEngravings(String characterName) {
+        return callApi(characterName, "/engravings", LostArkEngravingsResponse.class);
     }
 
-    public EquipmentDto[] getEquipment(String characterName) {
-        return callApi(characterName, "/equipment", EquipmentDto[].class);
+    public LostArkEquipmentResponse[] getEquipment(String characterName) {
+        return callApi(characterName, "/equipment", LostArkEquipmentResponse[].class);
     }
 
     private <T> T callApi(String characterName, String path, Class<T> clazz) {

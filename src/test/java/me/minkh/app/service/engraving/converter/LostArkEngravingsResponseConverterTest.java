@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EngravingsConverterTest {
+class LostArkEngravingsResponseConverterTest {
 
     private static final String CURSED_DOLL = "저주받은 인형";
     private static final String ADRENALINE = "아드레날린";

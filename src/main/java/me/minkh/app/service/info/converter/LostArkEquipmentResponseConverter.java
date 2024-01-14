@@ -1,8 +1,7 @@
 package me.minkh.app.service.info.converter;
 
 import lombok.extern.slf4j.Slf4j;
-import me.minkh.app.dto.info.EquipmentResponseDto;
-import me.minkh.app.dto.lostark.EquipmentDto;
+import me.minkh.app.dto.lostark.LostArkEquipmentResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -14,17 +13,15 @@ import static me.minkh.app.service.LostArkConstants.*;
 
 @Slf4j
 @Service
-public class EquipmentDtoConverter {
+public class LostArkEquipmentResponseConverter {
 
     private final String[] words = { NIGHTMARE, SALVATION, DOMINION, ENTROPY, HALLUCINATION };
 
-    public EquipmentResponseDto convert(EquipmentDto[] dtoList) {
+    public String convert(LostArkEquipmentResponse[] dtos) {
 
-        if (dtoList == null) {
-            return new EquipmentResponseDto(null);
-        }
+        if (dtos == null) return null;
 
-        List<EquipmentDto> list = Arrays.stream(dtoList)
+        List<LostArkEquipmentResponse> list = Arrays.stream(dtos)
                 .filter(e ->
                         e.getType().equals(HELM) ||
                         e.getType().equals(CHESTPIECE) ||
@@ -34,7 +31,7 @@ public class EquipmentDtoConverter {
                 .toList();
 
         Set<String> set = ConcurrentHashMap.newKeySet();
-        for (EquipmentDto dto : list) {
+        for (LostArkEquipmentResponse dto : list) {
             String name = dto.getName();
             for (String word: words) {
                 if (name.contains(word)) {
@@ -43,11 +40,8 @@ public class EquipmentDtoConverter {
             }
         }
 
-        if (set.size() != 1) {
-            return new EquipmentResponseDto(null);
-        }
+        if (set.size() != 1) return null;
 
-        String name = set.stream().findFirst().orElse(null);
-        return new EquipmentResponseDto(name);
+        return set.stream().findFirst().orElse(null);
     }
 }

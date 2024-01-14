@@ -1,17 +1,16 @@
 package me.minkh.app.service.info;
 
 import lombok.RequiredArgsConstructor;
-import me.minkh.app.dto.info.EngravingResponseDto;
-import me.minkh.app.dto.info.EquipmentResponseDto;
-import me.minkh.app.dto.info.InfoResponseDto;
-import me.minkh.app.dto.info.ProfileStatResponseDto;
-import me.minkh.app.dto.lostark.EngravingsDto;
-import me.minkh.app.dto.lostark.EquipmentDto;
-import me.minkh.app.dto.lostark.ProfileDto;
+import me.minkh.app.dto.info.Engraving;
+import me.minkh.app.dto.info.InfoResponse;
+import me.minkh.app.dto.info.CombatStat;
+import me.minkh.app.dto.lostark.LostArkEngravingsResponse;
+import me.minkh.app.dto.lostark.LostArkEquipmentResponse;
+import me.minkh.app.dto.lostark.LostArkProfilesResponse;
 import me.minkh.app.service.LostArkApiService;
-import me.minkh.app.service.info.converter.EngravingsDtoConverter;
-import me.minkh.app.service.info.converter.EquipmentDtoConverter;
-import me.minkh.app.service.info.converter.ProfileDtoConverter;
+import me.minkh.app.service.info.converter.LostArkEngravingsResponseConverter;
+import me.minkh.app.service.info.converter.LostArkEquipmentResponseConverter;
+import me.minkh.app.service.info.converter.LostArkProfilesResponseConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,23 +20,23 @@ import java.util.List;
 public class InfoService {
 
     private final LostArkApiService lostArkApiService;
-    private final EquipmentDtoConverter equipmentDtoConverter;
-    private final ProfileDtoConverter profileDtoConverter;
-    private final EngravingsDtoConverter engravingsDtoConverter;
+    private final LostArkEquipmentResponseConverter lostArkEquipmentResponseConverter;
+    private final LostArkProfilesResponseConverter lostArkProfilesResponseConverter;
+    private final LostArkEngravingsResponseConverter lostArkEngravingsResponseConverter;
 
-    public InfoResponseDto info(String characterName) {
-        EquipmentDto[] equipment = this.lostArkApiService.getEquipment(characterName);
-        EquipmentResponseDto characterEquipment = this.equipmentDtoConverter.convert(equipment);
+    public InfoResponse info(String characterName) {
+        LostArkEquipmentResponse[] equipment = this.lostArkApiService.getEquipment(characterName);
+        String artifact = this.lostArkEquipmentResponseConverter.convert(equipment);
 
-        ProfileDto profileDto = this.lostArkApiService.getProfiles(characterName);
-        List<ProfileStatResponseDto> profileStatResponseDtos = this.profileDtoConverter.convert(profileDto);
+        LostArkProfilesResponse lostArkProfilesResponse = this.lostArkApiService.getProfiles(characterName);
+        List<CombatStat> combatStats = this.lostArkProfilesResponseConverter.convert(lostArkProfilesResponse);
 
-        EngravingsDto engravings = this.lostArkApiService.getEngravings(characterName);
-        List<EngravingResponseDto> engravingResponseDtos = this.engravingsDtoConverter.convert(engravings);
+        LostArkEngravingsResponse engravings = this.lostArkApiService.getEngravings(characterName);
+        List<Engraving> engravingResponseDtos = this.lostArkEngravingsResponseConverter.convert(engravings);
 
-        return new InfoResponseDto(
-                characterEquipment,
-                profileStatResponseDtos,
+        return new InfoResponse(
+                artifact,
+                combatStats,
                 engravingResponseDtos);
     }
 }

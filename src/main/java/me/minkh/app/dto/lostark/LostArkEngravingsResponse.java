@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class EngravingsDto {
+public class LostArkEngravingsResponse {
 
     @JsonAlias("Engravings")
     private List<Engraving> engravings;

@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
 import me.minkh.app.dto.engraving.CombatAttributeDto;
-import me.minkh.app.dto.engraving.request.CombatStats;
+import me.minkh.app.dto.engraving.request.CombatStat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CombatStatsConverterTest {
+class LostArkProfilesResponseConverterTest {
 
     CombatStatsConverter combatStatsConverter = new CombatStatsConverter();
 
@@ -17,7 +17,7 @@ class CombatStatsConverterTest {
     @Test
     void test() {
         // given
-        List<CombatStats> combatStats = List.of(new CombatStats("치명", 1_000));
+        List<CombatStat> combatStats = List.of(new CombatStat("치명", 1_000));
 
         // when
         CombatAttributeDto combatAttributeDto = combatStatsConverter.convert(combatStats);
@@ -30,7 +30,7 @@ class CombatStatsConverterTest {
     @Test
     void test2() {
         // given
-        List<CombatStats> combatStats = List.of(new CombatStats("신속", 1_000));
+        List<CombatStat> combatStats = List.of(new CombatStat("신속", 1_000));
 
         // when
         CombatAttributeDto combatAttributeDto = combatStatsConverter.convert(combatStats);
@@ -43,9 +43,9 @@ class CombatStatsConverterTest {
     @Test
     void test3() {
         // given
-        List<CombatStats> combatStats = List.of(
-                new CombatStats("치명", 1_000),
-                new CombatStats("신속", 1_000));
+        List<CombatStat> combatStats = List.of(
+                new CombatStat("치명", 1_000),
+                new CombatStat("신속", 1_000));
 
         // when
         CombatAttributeDto combatAttributeDto = combatStatsConverter.convert(combatStats);
@@ -58,9 +58,9 @@ class CombatStatsConverterTest {
     @Test
     void test4() {
         // given
-        List<CombatStats> combatStats = List.of(
-                new CombatStats("이상한 값1", 1_000),
-                new CombatStats("이상한 값2", 1_000));
+        List<CombatStat> combatStats = List.of(
+                new CombatStat("이상한 값1", 1_000),
+                new CombatStat("이상한 값2", 1_000));
 
         // when
         CombatAttributeDto combatAttributeDto = combatStatsConverter.convert(combatStats);
