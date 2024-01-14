@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.minkh.app.service.LostArkConstants.ADRENALINE;
+import static me.minkh.app.service.LostArkConstants.CURSED_DOLL;
+
 @Service
 public class EngravingsDtoConverter {
-
-    private static final String CURSED_DOLL = "저주받은 인형";
-    private static final String ADRENALINE = "아드레날린";
 
     public List<EngravingResponseDto> convert(EngravingsDto dto) {
         if (dto == null) {

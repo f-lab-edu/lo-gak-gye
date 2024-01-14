@@ -1,11 +1,14 @@
 package me.minkh.app.service.info.converter;
 
-import me.minkh.app.dto.lostark.ProfileDto;
 import me.minkh.app.dto.info.ProfileStatResponseDto;
+import me.minkh.app.dto.lostark.ProfileDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static me.minkh.app.service.LostArkConstants.CRITICAL;
+import static me.minkh.app.service.LostArkConstants.SWIFTNESS;
 
 @Service
 public class ProfileDtoConverter {
@@ -29,10 +32,10 @@ public class ProfileDtoConverter {
     }
 
     private boolean isCritical(ProfileDto.Stat stat) {
-        return stat.getType().equals("치명");
+        return stat.getType().equals(CRITICAL);
     }
 
     private boolean isSwiftness(ProfileDto.Stat stat) {
-        return stat.getType().equals("신속");
+        return stat.getType().equals(SWIFTNESS);
     }
 }

@@ -5,27 +5,32 @@ import me.minkh.app.dto.info.EquipmentResponseDto;
 import me.minkh.app.dto.lostark.EquipmentDto;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static me.minkh.app.service.LostArkConstants.*;
 
 @Slf4j
 @Service
 public class EquipmentDtoConverter {
 
-    private final String[] words = { "악몽", "구원", "지배", "사멸", "환각" };
+    private final String[] words = { NIGHTMARE, SALVATION, DOMINION, ENTROPY, HALLUCINATION };
 
     public EquipmentResponseDto convert(EquipmentDto[] dtoList) {
+
         if (dtoList == null) {
             return new EquipmentResponseDto(null);
         }
 
         List<EquipmentDto> list = Arrays.stream(dtoList)
                 .filter(e ->
-                        e.getType().equals("투구") ||
-                        e.getType().equals("상의") ||
-                        e.getType().equals("하의") ||
-                        e.getType().equals("장갑") ||
-                        e.getType().equals("어깨"))
+                        e.getType().equals(HELM) ||
+                        e.getType().equals(CHESTPIECE) ||
+                        e.getType().equals(PANTS) ||
+                        e.getType().equals(GLOVES) ||
+                        e.getType().equals(PAULDRONS))
                 .toList();
 
         Set<String> set = ConcurrentHashMap.newKeySet();
