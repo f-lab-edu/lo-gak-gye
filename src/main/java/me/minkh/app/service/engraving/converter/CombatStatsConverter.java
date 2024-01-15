@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static me.minkh.app.service.LostArkConstants.CRITICAL;
-import static me.minkh.app.service.LostArkConstants.SWIFTNESS;
+import static me.minkh.app.service.LostArkConstants.*;
 
 @Service
 public class CombatStatsConverter {
@@ -30,10 +29,10 @@ public class CombatStatsConverter {
     }
 
     private double criticalHitRateCalculator(int critical) {
-        return critical * 0.0357;
+        return critical * CRITICAL_HIT_RATE_COEFFICIENT;
     }
 
     private double speedIncreaseCalculator(int swiftness) {
-        return swiftness * 1.717 / 100;
+        return swiftness * SPEED_INCREASE_COEFFICIENT / 100;
     }
 }

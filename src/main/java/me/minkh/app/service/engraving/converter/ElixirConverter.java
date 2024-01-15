@@ -21,7 +21,7 @@ public class ElixirConverter {
         if (type.equals(VANGUARD)) {
             if (level == 35 || level == 40) {
                 double currentAttackIncrease = stat.getAttackIncrease();
-                double nextAttackIncrease = currentAttackIncrease + 3.0;
+                double nextAttackIncrease = currentAttackIncrease + VANGUARD_ATTACK_INCREASE;
                 stat.setAttackIncrease(nextAttackIncrease);
             }
         } else if (type.equals(EXPERT) && level == 40) {

@@ -4,6 +4,8 @@ import me.minkh.app.dto.engraving.CombatAttributeDto;
 
 import java.util.List;
 
+import static me.minkh.app.service.LostArkConstants.*;
+
 public class CombatAttribute {
 
     // 치명타 적중률
@@ -38,25 +40,31 @@ public class CombatAttribute {
 
     // 치명타 피해량 변환 : { (기본값 200 + 계산값 - 100) / 100 }, 기본값이 200이기 때문에 1 밑으로 떨어지지 않는다.
     public void changeCriticalDamage() {
-        this.criticalDamage = (200 + this.criticalDamage - 100) / 100;
+        this.criticalDamage = (BASIC_CRITICAL_DAMAGE + this.criticalDamage - 100) / 100;
     }
 
     // 예리한 둔기 계산
     public double calcSharpBlunt() {
-        double result = (((((this.criticalDamage + 0.5) * this.criticalHitRate) + 1) / ((this.criticalDamage * this.criticalHitRate) + 1)) * 0.98) * 100 - 100;
+        // 예리한 둔기 적용 대미지 : (치명타 피해량 + 예리한 둔기 추가 치명타 피해량 0.5) * 치명타 적중률 + 1(default)
+        double sharpBluntDamage = ((this.criticalDamage + SHARP_BLUNT_CRITICAL_DAMAGE) * this.criticalHitRate) + 1;
+
+        // 기본 대미지 : 치명타 피해량 * 치명타 적중률 + 1(default)
+        double basicDamage = (this.criticalDamage * this.criticalHitRate) + 1;
+
+        double result = (sharpBluntDamage / basicDamage) * SHARP_BLUNT_ADJUSTMENT * 100 - 100;
         return round2(result);
     }
 
     // 돌격대장 계산
     public double calcBlitzCommander() {
-        double result = this.speedIncrease * 0.45;
+        double result = this.speedIncrease * BLITZ_COMMANDER_COEFFICIENT;
         // 돌격 대장의 최대 효율은 18
-        return Math.min(18, round2(result));
+        return Math.min(BLITZ_COMMANDER_MAX_EFFICIENCY, round2(result));
     }
 
     // 저주받은 인형 계산
     public double calcCursedDoll(double attackIncrease) {
-        double result = ((100 + this.attackIncrease) / (100 + this.attackIncrease - attackIncrease)) * 100 - 100;
+        double result = ((this.attackIncrease + 100) / (this.attackIncrease - attackIncrease + 100)) * 100 - 100;
         return round2(result);
     }
 
