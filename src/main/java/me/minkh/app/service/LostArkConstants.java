@@ -67,12 +67,12 @@ public final class LostArkConstants {
         );
     }
 
-    public static double CRITICAL_HIT_RATE_COEFFICIENT = 0.0357;
-    public static double SPEED_INCREASE_COEFFICIENT = 1.717;
-    public static double VANGUARD_ATTACK_INCREASE = 3.0;
-    public static double SHARP_BLUNT_ADJUSTMENT = 0.98;
-    public static int BASIC_CRITICAL_DAMAGE = 200;
-    public static double SHARP_BLUNT_CRITICAL_DAMAGE = 0.5;
-    public static double BLITZ_COMMANDER_COEFFICIENT = 0.45;
-    public static double BLITZ_COMMANDER_MAX_EFFICIENCY = 18.0;
+    public static final double CRITICAL_HIT_RATE_COEFFICIENT = 0.0357;
+    public static final double SPEED_INCREASE_COEFFICIENT = 1.717;
+    public static final double VANGUARD_ATTACK_INCREASE = 3.0;
+    public static final double SHARP_BLUNT_ADJUSTMENT = 0.98;
+    public static final int BASIC_CRITICAL_DAMAGE = 200;
+    public static final double SHARP_BLUNT_CRITICAL_DAMAGE = 0.5;
+    public static final double BLITZ_COMMANDER_COEFFICIENT = 0.45;
+    public static final double BLITZ_COMMANDER_MAX_EFFICIENCY = 18.0;
 }
