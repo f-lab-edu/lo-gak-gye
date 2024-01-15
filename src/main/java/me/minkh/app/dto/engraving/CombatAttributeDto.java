@@ -3,6 +3,7 @@ package me.minkh.app.dto.engraving;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.minkh.app.domain.engraving.Artifact;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +21,11 @@ public class CombatAttributeDto {
 
     // 이동속도 증가량
     private double speedIncrease;
+
+    public CombatAttributeDto(Artifact artifact) {
+        this.criticalHitRate = artifact.getCriticalHitRate();
+        this.criticalDamage = artifact.getCriticalDamage();
+        this.attackIncrease = artifact.getAttackIncrease();
+        this.speedIncrease = artifact.getSpeedIncrease();
+    }
 }
