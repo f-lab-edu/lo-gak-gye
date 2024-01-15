@@ -1,10 +1,10 @@
 package me.minkh.app.dto.info;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
+@Data
 public class InfoResponseDto {
 
       private final String artifact;

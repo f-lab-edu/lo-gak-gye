@@ -1,8 +1,8 @@
 package me.minkh.app.dto.info;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class ProfileStatResponseDto {
 
     private final String type;

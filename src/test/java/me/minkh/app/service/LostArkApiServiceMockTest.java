@@ -1,5 +1,7 @@
 package me.minkh.app.service;
 
+import me.minkh.app.dto.lostark.EngravingsDto;
+import me.minkh.app.dto.lostark.EquipmentDto;
 import me.minkh.app.dto.lostark.ProfileDto;
 import me.minkh.app.exception.CharacterNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -31,12 +33,14 @@ class LostArkApiServiceMockTest {
     @MockBean
     RestTemplate restTemplate;
 
+    String path = "src/test/java/me/minkh/app/";
+
     @DisplayName("프로필 조회에 성공하는 테스트")
     @Test
     void getProfiles() throws IOException {
         // given
         String characterName = "성공하는_아이디";
-        String body = new String(Files.readAllBytes(Paths.get("src/test/java/me/minkh/app/profile.json")));
+        String body = new String(Files.readAllBytes(Paths.get(path + "profile.json")));
 
         // when
         when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenReturn(ResponseEntity.ok(body));
@@ -47,7 +51,38 @@ class LostArkApiServiceMockTest {
         assertThat(profileDto.getServerName()).isEqualTo("루페온");
     }
 
-    @DisplayName("프로필 조회에 실패하는 테스트")
+    @DisplayName("각인 조회에 성공하는 테스트")
+    @Test
+    void getEngravings() throws IOException {
+        // given
+        String characterName = "성공하는_아이디";
+        String body = new String(Files.readAllBytes(Paths.get(path + "engravings.json")));
+
+        // when
+        when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenReturn(ResponseEntity.ok(body));
+        EngravingsDto engravings = this.lostArkApiService.getEngravings(characterName);
+
+        // then
+        assertThat(engravings.getEffects().size()).isEqualTo(6);
+    }
+
+    @DisplayName("장비 조회에 성공하는 테스트")
+    @Test
+    void getEquipment() throws IOException {
+        // given
+        String characterName = "성공하는_아이디";
+        String body = new String(Files.readAllBytes(Paths.get(path + "equipment.json")));
+
+        // when
+        when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenReturn(ResponseEntity.ok(body));
+        EquipmentDto[] equipmentDtos = this.lostArkApiService.getEquipment(characterName);
+
+        // then
+        assertThat(equipmentDtos.length).isEqualTo(16);
+        assertThat(equipmentDtos[0].getGrade()).isEqualTo("에스더");
+    }
+
+    @DisplayName("존재하지 않은 아이디 조회시 실패하는 테스트")
     @Test
     void getProfilesFail() {
         // given
