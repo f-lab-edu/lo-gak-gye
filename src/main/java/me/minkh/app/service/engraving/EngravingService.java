@@ -52,9 +52,9 @@ public class EngravingService {
             String name = engraving.getName();
             if (name.equals(CURSED_DOLL)) {
                 level = engraving.getLevel();
-                return cursedDollToAttackIncreaseMap.get(level);
+                return CURSED_DOLL_TO_ATTACK_INCREASE_MAP.get(level);
             }
         }
-        return cursedDollToAttackIncreaseMap.get(level);
+        return CURSED_DOLL_TO_ATTACK_INCREASE_MAP.get(level);
     }
 }

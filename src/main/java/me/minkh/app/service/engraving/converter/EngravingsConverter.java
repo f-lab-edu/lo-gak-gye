@@ -17,10 +17,10 @@ public class EngravingsConverter {
             String name = engraving.getName();
             int level = engraving.getLevel();
             if (name.equals(CURSED_DOLL)) {
-                stat.setAttackIncrease(stat.getAttackIncrease() + cursedDollToAttackIncreaseMap.get(level));
+                stat.setAttackIncrease(stat.getAttackIncrease() + CURSED_DOLL_TO_ATTACK_INCREASE_MAP.get(level));
             } else if (name.equals(ADRENALINE)) {
-                stat.setAttackIncrease(stat.getAttackIncrease() + adrenalineToAttackIncreaseMap.get(level));
-                stat.setCriticalHitRate(adrenalineToCriticalHitRateMap.get(level));
+                stat.setAttackIncrease(stat.getAttackIncrease() + ADRENALINE_TO_ATTACK_INCREASE_MAP.get(level));
+                stat.setCriticalHitRate(ADRENALINE_TO_CRITICAL_HIT_RATE_MAP.get(level));
             }
         }
         return stat;

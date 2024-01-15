@@ -13,7 +13,7 @@ public class ElixirConverter {
         CombatAttributeDto stat = new CombatAttributeDto();
 
         int headOffensePower = elixir.getHeadOffensePower();
-        stat.setAttackIncrease(elixirToAttackIncreaseMap.get(headOffensePower));
+        stat.setAttackIncrease(ELIXIR_TO_ATTACK_INCREASE_MAP.get(headOffensePower));
 
         String type = elixir.getType();
         int level = elixir.getLevel();
@@ -24,10 +24,8 @@ public class ElixirConverter {
                 double nextAttackIncrease = currentAttackIncrease + 3.0;
                 stat.setAttackIncrease(nextAttackIncrease);
             }
-        } else if (type.equals(EXPERT)) {
-            if (level == 40) {
-                stat.setCriticalHitRate(7);
-            }
+        } else if (type.equals(EXPERT) && level == 40) {
+            stat.setCriticalHitRate(7);
         }
 
         return stat;

@@ -1,9 +1,11 @@
 package me.minkh.app.service;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class LostArkConstants {
+public final class LostArkConstants {
+
+    private LostArkConstants() {
+    }
 
     public static final String NIGHTMARE = "악몽";
     public static final String SALVATION = "구원";
@@ -28,32 +30,40 @@ public abstract class LostArkConstants {
     public static final String GLOVES = "장갑";
     public static final String PAULDRONS = "어깨";
 
-    public static final Map<Integer, Double> elixirToAttackIncreaseMap = new ConcurrentHashMap<>();
-    public static final Map<Integer, Double> cursedDollToAttackIncreaseMap = new ConcurrentHashMap<>();
-    public static final Map<Integer, Double> adrenalineToAttackIncreaseMap = new ConcurrentHashMap<>();
-    public static final Map<Integer, Double> adrenalineToCriticalHitRateMap = new ConcurrentHashMap<>();
+    public static final Map<Integer, Double> ELIXIR_TO_ATTACK_INCREASE_MAP;
+    public static final Map<Integer, Double> CURSED_DOLL_TO_ATTACK_INCREASE_MAP;
+    public static final Map<Integer, Double> ADRENALINE_TO_ATTACK_INCREASE_MAP;
+    public static final Map<Integer, Double> ADRENALINE_TO_CRITICAL_HIT_RATE_MAP;
 
     static {
-        elixirToAttackIncreaseMap.put(0, 0.0);
-        elixirToAttackIncreaseMap.put(1, 0.23);
-        elixirToAttackIncreaseMap.put(2, 0.47);
-        elixirToAttackIncreaseMap.put(3, 0.72);
-        elixirToAttackIncreaseMap.put(4, 1.08);
-        elixirToAttackIncreaseMap.put(5, 1.44);
+        ELIXIR_TO_ATTACK_INCREASE_MAP = Map.of(
+                0, 0.0,
+                1, 0.23,
+                2, 0.47,
+                3, 0.72,
+                4, 1.08,
+                5, 1.44
+        );
 
-        cursedDollToAttackIncreaseMap.put(0, 0.0);
-        cursedDollToAttackIncreaseMap.put(1, 3.0);
-        cursedDollToAttackIncreaseMap.put(2, 8.0);
-        cursedDollToAttackIncreaseMap.put(3, 16.0);
+        CURSED_DOLL_TO_ATTACK_INCREASE_MAP = Map.of(
+                0, 0.0,
+                1, 3.0,
+                2, 8.0,
+                3, 16.0
+        );
 
-        adrenalineToAttackIncreaseMap.put(0, 0.0);
-        adrenalineToAttackIncreaseMap.put(1, 1.8);
-        adrenalineToAttackIncreaseMap.put(2, 3.6);
-        adrenalineToAttackIncreaseMap.put(3, 6.0);
+        ADRENALINE_TO_ATTACK_INCREASE_MAP = Map.of(
+                0, 0.0,
+                1, 1.8,
+                2, 3.6,
+                3, 6.0
+        );
 
-        adrenalineToCriticalHitRateMap.put(0, 0.0);
-        adrenalineToCriticalHitRateMap.put(1, 5.0);
-        adrenalineToCriticalHitRateMap.put(2, 10.0);
-        adrenalineToCriticalHitRateMap.put(3, 15.0);
+        ADRENALINE_TO_CRITICAL_HIT_RATE_MAP = Map.of(
+                0, 0.0,
+                1, 5.0,
+                2, 10.0,
+                3, 15.0
+        );
     }
 }

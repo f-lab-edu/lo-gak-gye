@@ -49,8 +49,7 @@ public class CombatAttribute {
 
     // 돌격대장 계산
     public double calcBlitzCommander() {
-        double speedIncrease = this.speedIncrease;
-        double result = speedIncrease * 0.45;
+        double result = this.speedIncrease * 0.45;
         // 돌격 대장의 최대 효율은 18
         return Math.min(18, round2(result));
     }

@@ -70,7 +70,7 @@ class ElixirConverterTest {
 
         // then
         assertThat(combatAttributeDto.getAttackIncrease()).isEqualTo(0.72);
-        assertThat(combatAttributeDto.getCriticalHitRate()).isEqualTo(0);
+        assertThat(combatAttributeDto.getCriticalHitRate()).isZero();
     }
 
     @DisplayName("달인 Lv40 일 때, 치명타 적즁률이 7 올라감")
