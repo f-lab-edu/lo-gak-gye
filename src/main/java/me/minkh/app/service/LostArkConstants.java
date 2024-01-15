@@ -67,6 +67,7 @@ public final class LostArkConstants {
         );
     }
 
+    public static final double EXPERT_CRITICAL_HIT_RATE = 7.0;
     public static final double CRITICAL_HIT_RATE_COEFFICIENT = 0.0357;
     public static final double SPEED_INCREASE_COEFFICIENT = 1.717;
     public static final double VANGUARD_ATTACK_INCREASE = 3.0;

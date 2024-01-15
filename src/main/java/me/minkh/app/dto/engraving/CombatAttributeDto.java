@@ -3,8 +3,10 @@ package me.minkh.app.dto.engraving;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import me.minkh.app.domain.engraving.Artifact;
 
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
