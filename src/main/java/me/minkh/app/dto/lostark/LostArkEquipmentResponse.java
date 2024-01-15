@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 
 @Getter
-public class EquipmentDto {
+public class LostArkEquipmentResponse {
 
     @JsonAlias("Type")
     private String type;

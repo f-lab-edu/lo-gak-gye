@@ -1,7 +1,7 @@
 package me.minkh.app.service.info.converter;
 
-import me.minkh.app.dto.info.ProfileStatResponseDto;
-import me.minkh.app.dto.lostark.ProfileDto;
+import me.minkh.app.dto.info.CombatStat;
+import me.minkh.app.dto.lostark.LostArkProfilesResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,31 +11,31 @@ import static me.minkh.app.service.LostArkConstants.CRITICAL;
 import static me.minkh.app.service.LostArkConstants.SWIFTNESS;
 
 @Service
-public class ProfileDtoConverter {
+public class LostArkProfilesResponseConverter {
 
-    public List<ProfileStatResponseDto> convert(ProfileDto dto) {
+    public List<CombatStat> convert(LostArkProfilesResponse dto) {
         if (dto == null) {
             return new ArrayList<>();
         }
 
-        List<ProfileStatResponseDto> dtos = new ArrayList<>();
-        for (ProfileDto.Stat stat : dto.getStats()) {
+        List<CombatStat> dtos = new ArrayList<>();
+        for (LostArkProfilesResponse.Stat stat : dto.getStats()) {
             if (isValid(stat)) {
-                dtos.add(new ProfileStatResponseDto(stat.getType(), stat.getValue()));
+                dtos.add(new CombatStat(stat.getType(), stat.getValue()));
             }
         }
         return dtos;
     }
 
-    private boolean isValid(ProfileDto.Stat stat) {
+    private boolean isValid(LostArkProfilesResponse.Stat stat) {
         return isCritical(stat) || isSwiftness(stat);
     }
 
-    private boolean isCritical(ProfileDto.Stat stat) {
+    private boolean isCritical(LostArkProfilesResponse.Stat stat) {
         return stat.getType().equals(CRITICAL);
     }
 
-    private boolean isSwiftness(ProfileDto.Stat stat) {
+    private boolean isSwiftness(LostArkProfilesResponse.Stat stat) {
         return stat.getType().equals(SWIFTNESS);
     }
 }

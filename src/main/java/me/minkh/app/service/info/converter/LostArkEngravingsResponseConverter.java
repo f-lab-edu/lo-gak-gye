@@ -1,7 +1,7 @@
 package me.minkh.app.service.info.converter;
 
-import me.minkh.app.dto.info.EngravingResponseDto;
-import me.minkh.app.dto.lostark.EngravingsDto;
+import me.minkh.app.dto.info.Engraving;
+import me.minkh.app.dto.lostark.LostArkEngravingsResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,29 +11,29 @@ import static me.minkh.app.service.LostArkConstants.ADRENALINE;
 import static me.minkh.app.service.LostArkConstants.CURSED_DOLL;
 
 @Service
-public class EngravingsDtoConverter {
+public class LostArkEngravingsResponseConverter {
 
-    public List<EngravingResponseDto> convert(EngravingsDto dto) {
+    public List<Engraving> convert(LostArkEngravingsResponse dto) {
         if (dto == null) {
             return new ArrayList<>();
         }
 
-        List<EngravingResponseDto> dtos = new ArrayList<>();
+        List<Engraving> dtos = new ArrayList<>();
         List<String> engravings = getEngravings(dto);
         for (String engraving : engravings) {
             String[] array = engraving.split("Lv.");
             String name = array[0].trim();
             int level = Integer.parseInt(array[1].trim());
             if (isValid(name)) {
-                dtos.add(new EngravingResponseDto(name, level));
+                dtos.add(new Engraving(name, level));
             }
         }
         return dtos;
     }
 
-    private List<String> getEngravings(EngravingsDto dto) {
+    private List<String> getEngravings(LostArkEngravingsResponse dto) {
         return dto.getEffects().stream()
-                .map(EngravingsDto.Effect::getName)
+                .map(LostArkEngravingsResponse.Effect::getName)
                 .toList();
     }
 

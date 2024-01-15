@@ -1,10 +1,10 @@
 package me.minkh.app.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.minkh.app.dto.info.InfoResponseDto;
-import me.minkh.app.dto.lostark.EngravingsDto;
-import me.minkh.app.dto.lostark.EquipmentDto;
-import me.minkh.app.dto.lostark.ProfileDto;
+import me.minkh.app.dto.info.InfoResponse;
+import me.minkh.app.dto.lostark.LostArkEngravingsResponse;
+import me.minkh.app.dto.lostark.LostArkEquipmentResponse;
+import me.minkh.app.dto.lostark.LostArkProfilesResponse;
 import me.minkh.app.service.info.InfoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,34 +40,34 @@ class InfoServiceTest {
     void getInfo() throws IOException {
         // given
         String characterName = "성공하는_아이디";
-        EquipmentDto[] equipmentDto = getEquipmentDto();
-        EngravingsDto engravingsDto = getEngravingsDto();
-        ProfileDto profileDto = getProfileDto();
+        LostArkEquipmentResponse[] lostArkEquipmentResponse = getEquipmentDto();
+        LostArkEngravingsResponse lostArkEngravingsResponse = getEngravingsDto();
+        LostArkProfilesResponse lostArkProfilesResponse = getProfileDto();
 
         // when
-        when(lostArkApiService.getEquipment(characterName)).thenReturn(equipmentDto);
-        when(lostArkApiService.getEngravings(characterName)).thenReturn(engravingsDto);
-        when(lostArkApiService.getProfiles(characterName)).thenReturn(profileDto);
-        InfoResponseDto result = homeService.info(characterName);
+        when(lostArkApiService.getEquipment(characterName)).thenReturn(lostArkEquipmentResponse);
+        when(lostArkApiService.getEngravings(characterName)).thenReturn(lostArkEngravingsResponse);
+        when(lostArkApiService.getProfiles(characterName)).thenReturn(lostArkProfilesResponse);
+        InfoResponse result = homeService.info(characterName);
 
         // then
         assertThat(result.getArtifact()).isEqualTo("사멸");
-        assertThat(result.getProfileStats().size()).isEqualTo(2);
+        assertThat(result.getCombatStats().size()).isEqualTo(2);
         assertThat(result.getEngravings().size()).isEqualTo(2);
     }
 
-    private EquipmentDto[] getEquipmentDto() throws IOException {
+    private LostArkEquipmentResponse[] getEquipmentDto() throws IOException {
         String body = new String(Files.readAllBytes(Paths.get(path + "equipment.json")));
-        return this.objectMapper.readValue(body, EquipmentDto[].class);
+        return this.objectMapper.readValue(body, LostArkEquipmentResponse[].class);
     }
 
-    private ProfileDto getProfileDto() throws IOException {
+    private LostArkProfilesResponse getProfileDto() throws IOException {
         String body = new String(Files.readAllBytes(Paths.get(path + "profile.json")));
-        return this.objectMapper.readValue(body, ProfileDto.class);
+        return this.objectMapper.readValue(body, LostArkProfilesResponse.class);
     }
 
-    private EngravingsDto getEngravingsDto() throws IOException {
+    private LostArkEngravingsResponse getEngravingsDto() throws IOException {
         String body = new String(Files.readAllBytes(Paths.get(path + "engravings.json")));
-        return this.objectMapper.readValue(body, EngravingsDto.class);
+        return this.objectMapper.readValue(body, LostArkEngravingsResponse.class);
     }
 }

@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
 import me.minkh.app.dto.engraving.CombatAttributeDto;
-import me.minkh.app.dto.engraving.request.CombatStats;
+import me.minkh.app.dto.engraving.request.CombatStat;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +12,9 @@ import static me.minkh.app.service.LostArkConstants.SWIFTNESS;
 @Service
 public class CombatStatsConverter {
 
-    public CombatAttributeDto convert(List<CombatStats> combatStats) {
+    public CombatAttributeDto convert(List<CombatStat> combatStats) {
         CombatAttributeDto stat = new CombatAttributeDto();
-        for (CombatStats combatStat : combatStats) {
+        for (CombatStat combatStat : combatStats) {
             String type = combatStat.getType();
             int value = combatStat.getValue();
 
