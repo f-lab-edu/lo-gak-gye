@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ProfileDto {
+public class LostArkProfilesResponse {
 
     @JsonAlias("CharacterImage")
     private String characterImage;

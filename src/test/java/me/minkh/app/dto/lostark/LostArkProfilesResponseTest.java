@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class ProfileDtoTest {
+class LostArkProfilesResponseTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -21,10 +21,10 @@ class ProfileDtoTest {
     void profileDtoConvertSuccessTest() throws IOException {
         // given
         String profileJson = new String(Files.readAllBytes(Paths.get("src/test/java/me/minkh/app/profile.json")));
-        ProfileDto profileDto = objectMapper.readValue(profileJson, ProfileDto.class);
+        LostArkProfilesResponse lostArkProfilesResponse = objectMapper.readValue(profileJson, LostArkProfilesResponse.class);
 
         // when
-        int length = profileDto.getStats().toArray().length;
+        int length = lostArkProfilesResponse.getStats().toArray().length;
 
         // then
         assertThat(length).isEqualTo(8);
@@ -41,7 +41,7 @@ class ProfileDtoTest {
             """;
 
         // when & then
-        assertThatThrownBy(() -> objectMapper.readValue(errorJson, ProfileDto.class))
+        assertThatThrownBy(() -> objectMapper.readValue(errorJson, LostArkProfilesResponse.class))
                 .isInstanceOf(JsonProcessingException.class);
     }
 }
