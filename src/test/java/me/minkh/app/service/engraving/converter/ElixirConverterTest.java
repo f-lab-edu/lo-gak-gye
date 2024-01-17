@@ -4,12 +4,18 @@ import me.minkh.app.dto.engraving.request.Elixir;
 import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
+@ActiveProfiles("test")
 class ElixirConverterTest {
 
-    ElixirConverter elixirConverter = new ElixirConverter();
+    @Autowired
+    ElixirConverter elixirConverter;
 
     @DisplayName("머리 공격력 증가량 테스트")
     @Test
