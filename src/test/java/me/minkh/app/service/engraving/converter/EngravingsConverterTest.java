@@ -1,24 +1,29 @@
 package me.minkh.app.service.engraving.converter;
 
-import me.minkh.app.dto.engraving.request.Engraving;
 import me.minkh.app.dto.engraving.CombatAttributeDto;
+import me.minkh.app.dto.engraving.request.Engraving;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+import static me.minkh.app.service.LostArkConstants.ADRENALINE;
+import static me.minkh.app.service.LostArkConstants.CURSED_DOLL;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LostArkEngravingsResponseConverterTest {
+@SpringBootTest
+@ActiveProfiles("test")
+class EngravingsConverterTest {
 
-    private static final String CURSED_DOLL = "저주받은 인형";
-    private static final String ADRENALINE = "아드레날린";
-
-    EngravingsConverter engravingsConverter = new EngravingsConverter();
+    @Autowired
+    EngravingsConverter engravingsConverter;
 
     @ParameterizedTest(name = "저주받은 인형 : {0}, 아드레날린 : {1}, 공격력 증가 : {2}")
     @MethodSource("method")

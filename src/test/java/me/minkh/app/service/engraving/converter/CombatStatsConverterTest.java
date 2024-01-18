@@ -4,14 +4,20 @@ import me.minkh.app.dto.engraving.CombatAttributeDto;
 import me.minkh.app.dto.engraving.request.CombatStat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LostArkProfilesResponseConverterTest {
+@SpringBootTest
+@ActiveProfiles("test")
+class CombatStatsConverterTest {
 
-    CombatStatsConverter combatStatsConverter = new CombatStatsConverter();
+    @Autowired
+    CombatStatsConverter combatStatsConverter;
 
     @DisplayName("치명이 1,000 일 때는 치명타 적중률이 35.7이다.")
     @Test

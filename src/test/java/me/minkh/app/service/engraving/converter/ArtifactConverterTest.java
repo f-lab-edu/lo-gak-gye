@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class LostArkEquipmentResponseConverterTest {
+class ArtifactConverterTest {
 
     @Autowired
     ArtifactConverter artifactConverter;
