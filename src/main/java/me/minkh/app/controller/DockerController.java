@@ -8,6 +8,6 @@ public class DockerController {
 
     @GetMapping("/build")
     public String build() {
-        return "build success 1";
+        return "build success 2";
     }
 }
