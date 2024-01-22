@@ -1,25 +1,26 @@
 package me.minkh.app.dto.account;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import me.minkh.app.domain.account.Account;
 
-@AllArgsConstructor
-@ToString
 @Getter
-public class AccountRequestDto {
+public class AccountRequest {
 
     @NotBlank
     private String name;
 
     @NotBlank
+    @Email
+    private String email;
+
     private String apiKey;
 
     public Account toEntity() {
         return Account.builder()
                 .name(this.name)
+                .email(this.email)
                 .apiKey(this.apiKey)
                 .build();
     }
