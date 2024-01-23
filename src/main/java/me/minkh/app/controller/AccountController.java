@@ -1,33 +1,36 @@
 package me.minkh.app.controller;
 
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
+import me.minkh.app.config.ConfigConst;
 import me.minkh.app.domain.account.Account;
-import me.minkh.app.domain.account.AccountRepository;
-import me.minkh.app.dto.account.AccountRequestDto;
-import me.minkh.app.dto.account.AccountResponseDto;
+import me.minkh.app.dto.account.AccountRequest;
+import me.minkh.app.dto.account.AccountResponse;
+import me.minkh.app.dto.account.UpdateApiKeyRequest;
+import me.minkh.app.service.account.AccountService;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
 
-    private final AccountRepository accountRepository;
-
-    public AccountController(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+    private final AccountService accountService;
 
     @PostMapping
-    public Account save(@Valid @RequestBody AccountRequestDto accountRequestDto) {
-        return this.accountRepository.save(accountRequestDto.toEntity());
+    public Account save(@Valid @RequestBody AccountRequest accountRequest) {
+        return this.accountService.save(accountRequest);
     }
 
     @GetMapping("/{id}")
-    public AccountResponseDto findById(@PathVariable("id") Long id) {
-        Account account = this.accountRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(id + "은 올바르지 않은 요청입니다."));
-        return new AccountResponseDto(account);
+    public AccountResponse findById(@PathVariable("id") Long id) {
+        return this.accountService.findById(id);
+    }
+
+    @PatchMapping
+    public AccountResponse updateApiKey(
+            @Valid @RequestBody UpdateApiKeyRequest request,
+            @SessionAttribute(ConfigConst.SESSION) Long id) {
+        return this.accountService.updateApiKey(request, id);
     }
 }

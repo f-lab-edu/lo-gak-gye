@@ -1,17 +1,12 @@
 package me.minkh.app.domain.engraving;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
+import me.minkh.app.domain.model.BaseEntity;
 
 @Getter
 @Entity
-public class Artifact {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Artifact extends BaseEntity {
 
     private String name;
 

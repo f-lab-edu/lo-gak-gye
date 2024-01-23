@@ -1,10 +1,12 @@
 package me.minkh.app.dto.account;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.minkh.app.domain.account.Account;
 
+@AllArgsConstructor
 @Getter
-public class AccountResponseDto {
+public class AccountResponse {
 
     private final Long id;
 
@@ -12,7 +14,7 @@ public class AccountResponseDto {
 
     private final String apiKey;
 
-    public AccountResponseDto(Account account) {
+    public AccountResponse(Account account) {
         this.id = account.getId();
         this.name = account.getName();
         this.apiKey = account.getApiKey();

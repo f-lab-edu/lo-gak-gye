@@ -1,23 +1,34 @@
 package me.minkh.app.domain.account;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.minkh.app.domain.model.BaseTimeEntity;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Entity
-public class Account {
+public class Account extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String email;
 
     private String name;
 
     private String apiKey;
+
+    public Account update(String email, String name) {
+        this.email = email;
+        this.name = name;
+        return this;
+    }
+
+    public Account updateApiKey(String apiKey) {
+        this.apiKey = apiKey;
+        return this;
+    }
 }
 
