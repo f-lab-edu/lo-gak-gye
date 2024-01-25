@@ -24,9 +24,6 @@ public class LostArkApiService {
     @Value("${lost-ark-api-url}")
     private String lostArkApiUrl;
 
-    @Value("${lost-ark-api-token}")
-    private String lostArkApiToken;
-
     private static final String BEARER = "Bearer ";
 
     private final RestTemplate restTemplate;
@@ -38,22 +35,22 @@ public class LostArkApiService {
         this.objectMapper = objectMapper;
     }
 
-    public LostArkProfilesResponse getProfiles(String characterName) {
-        return callApi(characterName, "/profiles", LostArkProfilesResponse.class);
+    public LostArkProfilesResponse getProfiles(String characterName, String apiKey) {
+        return callApi(characterName, "/profiles", apiKey, LostArkProfilesResponse.class);
     }
 
-    public LostArkEngravingsResponse getEngravings(String characterName) {
-        return callApi(characterName, "/engravings", LostArkEngravingsResponse.class);
+    public LostArkEngravingsResponse getEngravings(String characterName, String apiKey) {
+        return callApi(characterName, "/engravings", apiKey, LostArkEngravingsResponse.class);
     }
 
-    public LostArkEquipmentResponse[] getEquipment(String characterName) {
-        return callApi(characterName, "/equipment", LostArkEquipmentResponse[].class);
+    public LostArkEquipmentResponse[] getEquipment(String characterName, String apiKey) {
+        return callApi(characterName, "/equipment", apiKey, LostArkEquipmentResponse[].class);
     }
 
-    private <T> T callApi(String characterName, String path, Class<T> clazz) {
+    private <T> T callApi(String characterName, String path, String apikey, Class<T> clazz) {
         String url = getUrl(characterName, path);
 
-        HttpEntity<String> httpEntity = getHttpEntity();
+        HttpEntity<String> httpEntity = getHttpEntity(apikey);
 
         String body = this.restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class).getBody();
         if (Objects.equals(body, "null")) {
@@ -68,9 +65,9 @@ public class LostArkApiService {
         }
     }
 
-    private HttpEntity<String> getHttpEntity() {
+    private HttpEntity<String> getHttpEntity(String apiKey) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.AUTHORIZATION, BEARER + this.lostArkApiToken);
+        headers.set(HttpHeaders.AUTHORIZATION, BEARER + apiKey);
         return new HttpEntity<>(headers);
     }
 

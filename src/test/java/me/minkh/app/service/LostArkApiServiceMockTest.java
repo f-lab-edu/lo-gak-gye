@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -35,6 +36,8 @@ class LostArkApiServiceMockTest {
 
     String path = "src/test/java/me/minkh/app/";
 
+    String apiKey = UUID.randomUUID().toString();
+
     @DisplayName("프로필 조회에 성공하는 테스트")
     @Test
     void getProfiles() throws IOException {
@@ -44,7 +47,7 @@ class LostArkApiServiceMockTest {
 
         // when
         when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenReturn(ResponseEntity.ok(body));
-        LostArkProfilesResponse lostArkProfilesResponse = this.lostArkApiService.getProfiles(characterName);
+        LostArkProfilesResponse lostArkProfilesResponse = this.lostArkApiService.getProfiles(characterName, apiKey);
 
         // then
         assertThat(lostArkProfilesResponse.getStats().size()).isEqualTo(8);
@@ -60,7 +63,7 @@ class LostArkApiServiceMockTest {
 
         // when
         when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenReturn(ResponseEntity.ok(body));
-        LostArkEngravingsResponse engravings = this.lostArkApiService.getEngravings(characterName);
+        LostArkEngravingsResponse engravings = this.lostArkApiService.getEngravings(characterName, apiKey);
 
         // then
         assertThat(engravings.getEffects().size()).isEqualTo(6);
@@ -75,7 +78,7 @@ class LostArkApiServiceMockTest {
 
         // when
         when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenReturn(ResponseEntity.ok(body));
-        LostArkEquipmentResponse[] lostArkEquipmentResponses = this.lostArkApiService.getEquipment(characterName);
+        LostArkEquipmentResponse[] lostArkEquipmentResponses = this.lostArkApiService.getEquipment(characterName, apiKey);
 
         // then
         assertThat(lostArkEquipmentResponses.length).isEqualTo(16);
@@ -91,7 +94,7 @@ class LostArkApiServiceMockTest {
         // when & then
         when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenReturn(ResponseEntity.ok("null"));
 
-        assertThatThrownBy(() -> this.lostArkApiService.getProfiles(characterName))
+        assertThatThrownBy(() -> this.lostArkApiService.getProfiles(characterName, apiKey))
                 .isInstanceOf(CharacterNotFoundException.class)
                 .hasMessage(characterName + "에 해당하는 캐릭터가 없습니다.");
     }
@@ -105,7 +108,7 @@ class LostArkApiServiceMockTest {
         // when & then
         when(restTemplate.exchange(anyString(), any(), any(), eq(String.class))).thenThrow(new HttpClientErrorException(HttpStatus.UNAUTHORIZED));
 
-        assertThatThrownBy(() -> this.lostArkApiService.getProfiles(characterName))
+        assertThatThrownBy(() -> this.lostArkApiService.getProfiles(characterName, apiKey))
                 .isInstanceOf(HttpClientErrorException.class);
     }
 }

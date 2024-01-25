@@ -1,8 +1,12 @@
 package me.minkh.app.service.engraving.converter;
 
 
+import me.minkh.app.domain.engraving.Artifact;
+import me.minkh.app.domain.engraving.ArtifactRepository;
 import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import static me.minkh.app.service.LostArkConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -19,6 +24,23 @@ class ArtifactConverterTest {
 
     @Autowired
     ArtifactConverter artifactConverter;
+
+    @Autowired
+    ArtifactRepository artifactRepository;
+
+    @BeforeEach
+    void beforeEach() {
+        this.artifactRepository.save(new Artifact(NIGHTMARE, 0, 0, 0, 0));
+        this.artifactRepository.save(new Artifact(SALVATION, 0, 0, 0, 0));
+        this.artifactRepository.save(new Artifact(DOMINION, 0, 0, 0, 0));
+        this.artifactRepository.save(new Artifact(ENTROPY, 22, 65, 0, 0));
+        this.artifactRepository.save(new Artifact(HALLUCINATION, 28, 0, 0, 0));
+    }
+
+    @AfterEach
+    void afterEach() {
+        this.artifactRepository.deleteAll();
+    }
 
     @DisplayName("악몽, 구원, 지배")
     @ParameterizedTest

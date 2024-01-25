@@ -58,9 +58,9 @@ class InfoServiceTest {
         );
 
         // when
-        when(lostArkApiService.getEquipment(characterName)).thenReturn(lostArkEquipmentResponse);
-        when(lostArkApiService.getEngravings(characterName)).thenReturn(lostArkEngravingsResponse);
-        when(lostArkApiService.getProfiles(characterName)).thenReturn(lostArkProfilesResponse);
+        when(lostArkApiService.getEquipment(characterName, savedAccount.getApiKey())).thenReturn(lostArkEquipmentResponse);
+        when(lostArkApiService.getEngravings(characterName, savedAccount.getApiKey())).thenReturn(lostArkEngravingsResponse);
+        when(lostArkApiService.getProfiles(characterName, savedAccount.getApiKey())).thenReturn(lostArkProfilesResponse);
         InfoResponse result = homeService.info(characterName, savedAccount.getId());
 
         // then

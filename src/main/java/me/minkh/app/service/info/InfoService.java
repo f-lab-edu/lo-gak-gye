@@ -36,13 +36,13 @@ public class InfoService {
             throw new IllegalArgumentException("API키 업데이트가 필요합니다.");
         }
 
-        LostArkEquipmentResponse[] equipment = this.lostArkApiService.getEquipment(characterName);
+        LostArkEquipmentResponse[] equipment = this.lostArkApiService.getEquipment(characterName, apiKey);
         String artifact = this.lostArkEquipmentResponseConverter.convert(equipment);
 
-        LostArkProfilesResponse lostArkProfilesResponse = this.lostArkApiService.getProfiles(characterName);
+        LostArkProfilesResponse lostArkProfilesResponse = this.lostArkApiService.getProfiles(characterName, apiKey);
         List<CombatStat> combatStats = this.lostArkProfilesResponseConverter.convert(lostArkProfilesResponse);
 
-        LostArkEngravingsResponse engravings = this.lostArkApiService.getEngravings(characterName);
+        LostArkEngravingsResponse engravings = this.lostArkApiService.getEngravings(characterName, apiKey);
         List<Engraving> engravingResponseDtos = this.lostArkEngravingsResponseConverter.convert(engravings);
 
         return new InfoResponse(
