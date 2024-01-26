@@ -1,5 +1,6 @@
 package me.minkh.app.domain.account;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,7 @@ public class Account extends BaseTimeEntity {
 
     private String name;
 
+    @Column(columnDefinition = "TEXT")
     private String apiKey;
 
     public Account update(String email, String name) {

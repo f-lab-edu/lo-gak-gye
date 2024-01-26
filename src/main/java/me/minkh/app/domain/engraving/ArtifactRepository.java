@@ -9,4 +9,6 @@ public interface ArtifactRepository extends Repository<Artifact, Long> {
     void save(Artifact artifact);
 
     Optional<Artifact> findByName(String name);
+
+    void deleteAll();
 }

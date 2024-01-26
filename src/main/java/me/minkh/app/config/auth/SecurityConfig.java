@@ -23,7 +23,7 @@ public class SecurityConfig {
         // csrf 옵션 disable
         http.csrf(AbstractHttpConfigurer::disable);
         // AUTH_LIST의 경로 외 나머지 옵션은 인증이 필요 없음
-        http.authorizeHttpRequests((authorize) ->
+        http.authorizeHttpRequests(authorize ->
                 authorize
                         .requestMatchers(AUTH_LIST).authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/accounts").authenticated()
