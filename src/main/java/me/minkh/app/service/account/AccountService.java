@@ -1,23 +1,30 @@
 package me.minkh.app.service.account;
 
 import lombok.RequiredArgsConstructor;
+import me.minkh.app.config.auth.AccountAdapter;
 import me.minkh.app.domain.account.Account;
 import me.minkh.app.domain.account.AccountRepository;
 import me.minkh.app.dto.account.AccountRequest;
 import me.minkh.app.dto.account.AccountResponse;
 import me.minkh.app.dto.account.UpdateApiKeyRequest;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class AccountService {
+public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Account save(AccountRequest accountRequest) {
-        return accountRequest.toEntity();
+    public AccountResponse save(AccountRequest accountRequest) {
+        accountRequest.encodePassword(this.passwordEncoder);
+        Account savedAccount = accountRepository.save(accountRequest.toEntity());
+        return new AccountResponse(savedAccount);
     }
 
     public AccountResponse findById(Long id) {
@@ -31,5 +38,12 @@ public class AccountService {
         Account account = this.accountRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(id + "은 올바르지 않은 요청입니다."));
         return new AccountResponse(account.updateApiKey(apiKey));
+    }
+
+    @Override
+    public AccountAdapter loadUserByUsername(String username) throws UsernameNotFoundException {
+        Account account = accountRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username + "은 올바르지 않은 요청입니다."));
+        return new AccountAdapter(account);
     }
 }

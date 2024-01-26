@@ -15,12 +15,17 @@ import me.minkh.app.domain.model.BaseTimeEntity;
 @Entity
 public class Account extends BaseTimeEntity {
 
+    @Column(unique = true)
     private String email;
 
     private String name;
 
+    private String password;
+
     @Column(columnDefinition = "TEXT")
     private String apiKey;
+
+    private boolean isEmailVerified;
 
     public Account update(String email, String name) {
         this.email = email;
@@ -31,6 +36,10 @@ public class Account extends BaseTimeEntity {
     public Account updateApiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
+    }
+
+    public void verifiedEmail() {
+        this.isEmailVerified = true;
     }
 }
 

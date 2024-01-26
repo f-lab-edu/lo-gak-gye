@@ -1,8 +1,6 @@
 package me.minkh.app.config.auth;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import me.minkh.app.config.ConfigConst;
 import me.minkh.app.domain.account.Account;
 import me.minkh.app.domain.account.AccountRepository;
 import me.minkh.app.dto.account.Attribute;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class MyOAuth2UserService extends DefaultOAuth2UserService {
 
     private final AccountRepository accountRepository;
-    private final HttpSession httpSession;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -30,9 +27,6 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
                 .orElse(attribute.toEntity());
         this.accountRepository.save(account);
 
-        // 세션 저장, ID만 저장한 뒤, 필요하면 꺼내서 쓴다.
-        httpSession.setAttribute(ConfigConst.SESSION, account.getId());
-
-        return oAuth2User;
+        return new AccountAdapter(account, oAuth2User);
     }
 }

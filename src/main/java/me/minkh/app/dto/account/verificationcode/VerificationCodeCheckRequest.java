@@ -1,19 +1,24 @@
-package me.minkh.app.dto.account;
+package me.minkh.app.dto.account.verificationcode;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
-public class UpdateApiKeyRequest {
+public class VerificationCodeCheckRequest {
 
     @NotBlank
-    @Length(min = 20)
-    private String apiKey;
+    @Email
+    private String email;
+
+    @NotBlank
+    private String code;
 }
+
+

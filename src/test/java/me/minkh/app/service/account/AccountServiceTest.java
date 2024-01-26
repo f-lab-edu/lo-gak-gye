@@ -2,6 +2,7 @@ package me.minkh.app.service.account;
 
 import me.minkh.app.domain.account.Account;
 import me.minkh.app.domain.account.AccountRepository;
+import me.minkh.app.dto.account.AccountRequest;
 import me.minkh.app.dto.account.AccountResponse;
 import me.minkh.app.dto.account.UpdateApiKeyRequest;
 import org.junit.jupiter.api.AfterEach;
@@ -29,6 +30,25 @@ class AccountServiceTest {
     @AfterEach
     void afterEach() {
         this.accountRepository.deleteAll();
+    }
+
+    @DisplayName("Account 저장 테스트")
+    @Test
+    void save() {
+        // given
+        AccountRequest accountRequest = AccountRequest.builder()
+                .email("test@test.com")
+                .name("test")
+                .password("password")
+                .build();
+
+        // when
+        AccountResponse accountResponse = accountService.save(accountRequest);
+
+        // then
+        assertThat(accountResponse.getEmail()).isEqualTo(accountRequest.getEmail());
+        assertThat(accountResponse.getName()).isEqualTo(accountRequest.getName());
+        assertThat(accountResponse.getApiKey()).isNull();
     }
 
     @DisplayName("API Key 업데이트 성공 테스트")

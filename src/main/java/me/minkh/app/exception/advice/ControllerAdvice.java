@@ -44,6 +44,9 @@ public class ControllerAdvice {
         log.error("httpClientErrorException", e);
         HttpStatus httpStatus = (HttpStatus) e.getStatusCode();
         // TODO: 이후에 message 처리 방법을 고려해 봐야 한다.
+        if (httpStatus == HttpStatus.UNAUTHORIZED) {
+            return this.exceptionHandler(e, httpStatus, "유효하지 않은 API키 입니다.");
+        }
         return this.exceptionHandler(e, httpStatus, e.getMessage());
     }
 
