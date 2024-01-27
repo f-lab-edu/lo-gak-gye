@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 @Service
@@ -69,7 +69,7 @@ public class VerificationCodeService {
     }
 
     private String getCode() {
-        int num = 100_000 + new Random().nextInt(900_000);
+        int num = 100_000 + ThreadLocalRandom.current().nextInt(900_000);
         return String.valueOf(num);
     }
 }
