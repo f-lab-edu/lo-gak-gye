@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -69,7 +69,6 @@ public class VerificationCodeService {
     }
 
     private String getCode() {
-        int num = 100_000 + ThreadLocalRandom.current().nextInt(900_000);
-        return String.valueOf(num);
+        return UUID.randomUUID().toString().substring(0, 8);
     }
 }

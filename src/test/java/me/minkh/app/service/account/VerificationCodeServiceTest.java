@@ -62,7 +62,7 @@ class VerificationCodeServiceTest {
 
         // then
         assertThat(response.getEmail()).isEqualTo(request.getEmail());
-        assertThat(response.getCode().length()).isEqualTo(6);
+        assertThat(response.getCode().length()).isEqualTo(8);
         assertThat(response.getExpiredDate()).isAfter(LocalDateTime.now());
     }
 
@@ -173,7 +173,7 @@ class VerificationCodeServiceTest {
     private VerificationCode saveVerificationCode(Account account, LocalDateTime expiredDate) {
         return verificationCodeRepository.save(
                 VerificationCode.builder()
-                        .code("123456")
+                        .code("12345678")
                         .expiredDate(expiredDate)
                         .account(account)
                         .build()
