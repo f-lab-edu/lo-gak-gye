@@ -2,8 +2,7 @@ package me.minkh.app.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.minkh.app.config.ConfigConst;
-import me.minkh.app.domain.account.Account;
+import me.minkh.app.config.auth.CurrentId;
 import me.minkh.app.dto.account.AccountRequest;
 import me.minkh.app.dto.account.AccountResponse;
 import me.minkh.app.dto.account.UpdateApiKeyRequest;
@@ -18,7 +17,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping
-    public Account save(@Valid @RequestBody AccountRequest accountRequest) {
+    public AccountResponse save(@Valid @RequestBody AccountRequest accountRequest) {
         return this.accountService.save(accountRequest);
     }
 
@@ -30,7 +29,8 @@ public class AccountController {
     @PatchMapping
     public AccountResponse updateApiKey(
             @Valid @RequestBody UpdateApiKeyRequest request,
-            @SessionAttribute(ConfigConst.SESSION) Long id) {
-        return this.accountService.updateApiKey(request, id);
+            @CurrentId Long accountId
+    ) {
+        return this.accountService.updateApiKey(request, accountId);
     }
 }
