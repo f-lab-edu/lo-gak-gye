@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
     private final JavaMailSender mailSender;
-    private static final String subject = "인증번호";
+    private static final String SUBJECT = "인증번호";
 
     @Async
     public void sendEmail(String to, String content) {
@@ -24,7 +24,7 @@ public class MailService {
             MimeMessageHelper helper = new MimeMessageHelper(message);
 
             helper.setTo(to);
-            helper.setSubject(subject);
+            helper.setSubject(SUBJECT);
             helper.setText(content);
 
             mailSender.send(message);

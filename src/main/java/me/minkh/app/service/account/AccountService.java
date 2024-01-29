@@ -21,6 +21,8 @@ public class AccountService implements UserDetailsService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private static final String INVALID_REQUEST_MESSAGE = "은 올바르지 않은 요청입니다.";
+
     public AccountResponse save(AccountRequest accountRequest) {
         accountRequest.encodePassword(this.passwordEncoder);
         Account savedAccount = accountRepository.save(accountRequest.toEntity());
@@ -29,21 +31,21 @@ public class AccountService implements UserDetailsService {
 
     public AccountResponse findById(Long id) {
         Account account = this.accountRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(id + "은 올바르지 않은 요청입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(id + INVALID_REQUEST_MESSAGE));
         return new AccountResponse(account);
     }
 
     public AccountResponse updateApiKey(UpdateApiKeyRequest request, Long id) {
         String apiKey = request.getApiKey();
         Account account = this.accountRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(id + "은 올바르지 않은 요청입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(id + INVALID_REQUEST_MESSAGE));
         return new AccountResponse(account.updateApiKey(apiKey));
     }
 
     @Override
     public AccountAdapter loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username + "은 올바르지 않은 요청입니다."));
+                .orElseThrow(() -> new UsernameNotFoundException(username + INVALID_REQUEST_MESSAGE));
         return new AccountAdapter(account);
     }
 }
