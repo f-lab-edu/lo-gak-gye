@@ -7,7 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
@@ -33,9 +32,6 @@ public class SecurityConfig {
 
         // Basic Authentication 활성화
         http.httpBasic(h -> h.realmName("App"));
-
-        // 세션 활성화
-        http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
         // OAuth2
         http.oauth2Login(o -> o.loginPage("/login").userInfoEndpoint(u -> u.userService(oAuth2UserService)));
