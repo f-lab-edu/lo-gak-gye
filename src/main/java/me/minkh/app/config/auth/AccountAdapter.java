@@ -14,7 +14,7 @@ import java.util.Map;
 public class AccountAdapter implements OAuth2User, UserDetails {
 
     private final Account account;
-    private Map<String, Object> attributes;
+    private transient Map<String, Object> attributes;
 
     public AccountAdapter(Account account) {
         this.account = account;

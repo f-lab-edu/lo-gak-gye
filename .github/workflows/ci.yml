@@ -93,8 +93,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             cd /home/ec2-user
-            docker-compose pull app
-            docker-compose up -d app
+            docker-compose pull
+            docker-compose up -d
             docker image prune -a -f
 
       # GitHub Actions VM 환경의 IP를 인바운드 규칙에서 제거한다.
