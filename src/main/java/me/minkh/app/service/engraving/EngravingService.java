@@ -1,6 +1,8 @@
 package me.minkh.app.service.engraving;
 
 import lombok.RequiredArgsConstructor;
+import me.minkh.app.domain.account.Account;
+import me.minkh.app.domain.account.AccountRepository;
 import me.minkh.app.domain.engraving.CombatAttribute;
 import me.minkh.app.domain.engraving.preset.Preset;
 import me.minkh.app.domain.engraving.preset.PresetRepository;
@@ -28,6 +30,7 @@ public class EngravingService {
     private final EtcConverter etcConverter;
 
     private final PresetRepository presetRepository;
+    private final AccountRepository accountRepository;
 
     public List<EngravingCalcResponse> calcEngravings(EngravingSetupRequest dto) {
         List<CombatAttributeDto> combatAttributeDtos = List.of(
@@ -65,8 +68,19 @@ public class EngravingService {
     }
 
     @Transactional
-    public EngravingPresetResponse savePreset(EngravingSetupRequest request) {
-        Preset preset = this.presetRepository.save(request.toEntity());
+    public EngravingPresetResponse savePreset(EngravingSetupRequest request, Long accountId) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException(accountId + "은 올바르지 않은 요청입니다."));
+
+        List<Preset> presets = this.presetRepository.findByAccount(account);
+        if (presets.size() >= 5) {
+            throw new IllegalArgumentException("프리셋은 5개 이상 초과할 수 없습니다.");
+        }
+
+        Preset entity = request.toEntity();
+        entity.addAccount(account);
+
+        Preset preset = this.presetRepository.save(entity);
         return new EngravingPresetResponse(preset);
     }
 }

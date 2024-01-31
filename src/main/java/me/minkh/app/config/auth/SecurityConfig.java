@@ -16,7 +16,7 @@ public class SecurityConfig {
 
     private final MyOAuth2UserService oAuth2UserService;
 
-    private static final String[] AUTH_LIST = { "/info/**" };
+    private static final String[] AUTH_LIST = { "/info/**", "/engravings/presets" };
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

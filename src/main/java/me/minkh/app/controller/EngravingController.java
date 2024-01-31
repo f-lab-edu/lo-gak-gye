@@ -1,6 +1,7 @@
 package me.minkh.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.minkh.app.config.auth.CurrentId;
 import me.minkh.app.dto.engraving.request.EngravingSetupRequest;
 import me.minkh.app.dto.engraving.response.EngravingCalcResponse;
 import me.minkh.app.dto.engraving.response.EngravingPresetResponse;
@@ -25,7 +26,10 @@ public class EngravingController {
     }
 
     @PostMapping("/presets")
-    public EngravingPresetResponse savePreset(@RequestBody EngravingSetupRequest request) {
-        return this.engravingService.savePreset(request);
+    public EngravingPresetResponse savePreset(
+            @RequestBody EngravingSetupRequest request,
+            @CurrentId Long accountId
+    ) {
+        return this.engravingService.savePreset(request, accountId);
     }
 }
