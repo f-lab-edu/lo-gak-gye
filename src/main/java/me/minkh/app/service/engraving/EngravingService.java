@@ -2,7 +2,8 @@ package me.minkh.app.service.engraving;
 
 import lombok.RequiredArgsConstructor;
 import me.minkh.app.domain.engraving.CombatAttribute;
-import me.minkh.app.domain.engraving.preset.*;
+import me.minkh.app.domain.engraving.preset.Preset;
+import me.minkh.app.domain.engraving.preset.PresetRepository;
 import me.minkh.app.dto.engraving.CombatAttributeDto;
 import me.minkh.app.dto.engraving.request.EngravingDto;
 import me.minkh.app.dto.engraving.request.EngravingSetupRequest;
@@ -26,8 +27,6 @@ public class EngravingService {
     private final EngravingsConverter engravingsConverter;
     private final EtcConverter etcConverter;
 
-    private final CombatStatRepository combatStatRepository;
-    private final EngravingRepository engravingRepository;
     private final PresetRepository presetRepository;
 
     public List<EngravingCalcResponse> calcEngravings(EngravingSetupRequest dto) {

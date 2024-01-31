@@ -3,7 +3,6 @@ package me.minkh.app.dto.engraving.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.minkh.app.domain.engraving.preset.Elixir;
 import me.minkh.app.domain.engraving.preset.Etc;
 
 @AllArgsConstructor
