@@ -15,9 +15,7 @@ import me.minkh.app.service.engraving.converter.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static me.minkh.app.service.LostArkConstants.*;
 
@@ -35,6 +33,8 @@ public class EngravingService {
     private final AccountRepository accountRepository;
 
     private static final String INVALID_REQUEST_MESSAGE = "은 올바르지 않은 요청입니다.";
+    private static final String MAX_PRESETS_EXCEEDED_MESSAGE = "프리셋은 5개 이상 초과할 수 없습니다.";
+    private static final int MAX_PRESETS = 5;
 
     public List<EngravingCalcResponse> calcEngravings(EngravingSetupRequest dto) {
         List<CombatAttributeDto> combatAttributeDtos = List.of(
@@ -73,12 +73,10 @@ public class EngravingService {
 
     @Transactional
     public EngravingPresetResponse savePreset(EngravingSetupRequest request, Long accountId) {
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException(accountId + INVALID_REQUEST_MESSAGE));
-
+        Account account = this.findAccountById(accountId);
         List<Preset> presets = this.presetRepository.findByAccount(account);
-        if (presets.size() >= 5) {
-            throw new IllegalArgumentException("프리셋은 5개 이상 초과할 수 없습니다.");
+        if (presets.size() >= MAX_PRESETS) {
+            throw new IllegalArgumentException(MAX_PRESETS_EXCEEDED_MESSAGE);
         }
 
         Preset entity = request.toEntity();
@@ -89,23 +87,34 @@ public class EngravingService {
     }
 
     public List<EngravingPresetResponse> getPresets(Long accountId) {
-        Account account = this.accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException(accountId + INVALID_REQUEST_MESSAGE));
-
+        Account account = this.findAccountById(accountId);
         List<Preset> presets = this.presetRepository.findByAccount(account);
-
         return presets.stream()
                 .map(EngravingPresetResponse::new)
                 .toList();
     }
 
     public EngravingPresetResponse getPreset(Long presetId, Long accountId) {
-        Account account = this.accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException(accountId + INVALID_REQUEST_MESSAGE));
-
-        Preset preset = this.presetRepository.findByIdAndAccount(presetId, account)
-                .orElseThrow(() -> new IllegalArgumentException(presetId + INVALID_REQUEST_MESSAGE));
-
+        Account account = this.findAccountById(accountId);
+        Preset preset = this.findPresetByIdAndAccount(presetId, account);
         return new EngravingPresetResponse(preset);
+    }
+
+    @Transactional
+    public EngravingPresetResponse deletePreset(Long presetId, Long accountId) {
+        Account account = this.findAccountById(accountId);
+        Preset preset = this.findPresetByIdAndAccount(presetId, account);
+        this.presetRepository.delete(preset);
+        return new EngravingPresetResponse(preset);
+    }
+
+    private Account findAccountById(Long accountId) {
+        return this.accountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException(accountId + INVALID_REQUEST_MESSAGE));
+    }
+
+    private Preset findPresetByIdAndAccount(Long presetId, Account account) {
+        return this.presetRepository.findByIdAndAccount(presetId, account)
+                .orElseThrow(() -> new IllegalArgumentException(presetId + INVALID_REQUEST_MESSAGE));
     }
 }

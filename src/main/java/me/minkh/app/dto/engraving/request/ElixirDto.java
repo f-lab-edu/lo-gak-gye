@@ -20,6 +20,7 @@ public class ElixirDto {
         return Elixir.builder()
                 .type(this.type)
                 .level(this.level)
+                .headOffensePower(this.headOffensePower)
                 .build();
     }
 }

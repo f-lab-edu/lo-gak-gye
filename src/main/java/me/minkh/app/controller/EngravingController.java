@@ -39,4 +39,9 @@ public class EngravingController {
     public EngravingPresetResponse getPreset(@PathVariable("presetId") Long presetId, @CurrentId Long accountId) {
         return this.engravingService.getPreset(presetId, accountId);
     }
+
+    @DeleteMapping("/presets/{presetId}")
+    public EngravingPresetResponse deletePreset(@PathVariable("presetId") Long presetId, @CurrentId Long accountId) {
+        return this.engravingService.deletePreset(presetId, accountId);
+    }
 }
