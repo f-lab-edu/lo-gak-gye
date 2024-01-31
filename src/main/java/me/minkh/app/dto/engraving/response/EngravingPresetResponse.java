@@ -14,6 +14,8 @@ import java.util.List;
 @Data
 public class EngravingPresetResponse {
 
+    private Long id;
+
     private String artifact;
 
     private ElixirDto elixir;
@@ -25,6 +27,7 @@ public class EngravingPresetResponse {
     private EtcDto etc;
 
     public EngravingPresetResponse(Preset preset) {
+        this.id = preset.getId();
         this.artifact = preset.getArtifact();
         this.elixir = new ElixirDto(
                 preset.getElixir().getType(),

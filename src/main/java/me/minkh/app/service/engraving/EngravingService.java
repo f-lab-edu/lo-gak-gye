@@ -15,7 +15,9 @@ import me.minkh.app.service.engraving.converter.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static me.minkh.app.service.LostArkConstants.*;
 
@@ -31,6 +33,8 @@ public class EngravingService {
 
     private final PresetRepository presetRepository;
     private final AccountRepository accountRepository;
+
+    private static final String INVALID_REQUEST_MESSAGE = "은 올바르지 않은 요청입니다.";
 
     public List<EngravingCalcResponse> calcEngravings(EngravingSetupRequest dto) {
         List<CombatAttributeDto> combatAttributeDtos = List.of(
@@ -70,7 +74,7 @@ public class EngravingService {
     @Transactional
     public EngravingPresetResponse savePreset(EngravingSetupRequest request, Long accountId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException(accountId + "은 올바르지 않은 요청입니다."));
+                .orElseThrow(() -> new IllegalArgumentException(accountId + INVALID_REQUEST_MESSAGE));
 
         List<Preset> presets = this.presetRepository.findByAccount(account);
         if (presets.size() >= 5) {
@@ -81,6 +85,27 @@ public class EngravingService {
         entity.addAccount(account);
 
         Preset preset = this.presetRepository.save(entity);
+        return new EngravingPresetResponse(preset);
+    }
+
+    public List<EngravingPresetResponse> getPresets(Long accountId) {
+        Account account = this.accountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException(accountId + INVALID_REQUEST_MESSAGE));
+
+        List<Preset> presets = this.presetRepository.findByAccount(account);
+
+        return presets.stream()
+                .map(EngravingPresetResponse::new)
+                .toList();
+    }
+
+    public EngravingPresetResponse getPreset(Long presetId, Long accountId) {
+        Account account = this.accountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException(accountId + INVALID_REQUEST_MESSAGE));
+
+        Preset preset = this.presetRepository.findByIdAndAccount(presetId, account)
+                .orElseThrow(() -> new IllegalArgumentException(presetId + INVALID_REQUEST_MESSAGE));
+
         return new EngravingPresetResponse(preset);
     }
 }

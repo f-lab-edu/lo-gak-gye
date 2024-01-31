@@ -6,10 +6,7 @@ import me.minkh.app.dto.engraving.request.EngravingSetupRequest;
 import me.minkh.app.dto.engraving.response.EngravingCalcResponse;
 import me.minkh.app.dto.engraving.response.EngravingPresetResponse;
 import me.minkh.app.service.engraving.EngravingService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,15 @@ public class EngravingController {
             @CurrentId Long accountId
     ) {
         return this.engravingService.savePreset(request, accountId);
+    }
+
+    @GetMapping("/presets")
+    public List<EngravingPresetResponse> getPresets(@CurrentId Long accountId) {
+        return this.engravingService.getPresets(accountId);
+    }
+
+    @GetMapping("/presets/{presetId}")
+    public EngravingPresetResponse getPreset(@PathVariable("presetId") Long presetId, @CurrentId Long accountId) {
+        return this.engravingService.getPreset(presetId, accountId);
     }
 }
