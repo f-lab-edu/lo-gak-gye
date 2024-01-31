@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Engraving {
+public class CombatStatDto {
 
-    private String name;
+    private String type;
 
-    private int level;
+    private int value;
 }
+

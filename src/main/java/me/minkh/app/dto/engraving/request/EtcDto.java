@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Etc {
+public class EtcDto {
 
     private double criticalDamage;
 

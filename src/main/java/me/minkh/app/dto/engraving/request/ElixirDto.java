@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CombatStat {
+public class ElixirDto {
 
     private String type;
 
-    private int value;
-}
+    private int level;
 
+    private int headOffensePower;
+}

@@ -9,12 +9,12 @@ public class EngravingSetupRequest {
 
     private String artifact;
 
-    private Elixir elixir;
+    private ElixirDto elixir;
 
-    private List<CombatStat> combatStats;
+    private List<CombatStatDto> combatStats;
 
-    private List<Engraving> engravings;
+    private List<EngravingDto> engravings;
 
-    private Etc etc;
+    private EtcDto etc;
 }
 

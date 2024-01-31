@@ -1,6 +1,6 @@
 package me.minkh.app.service.engraving.converter;
 
-import me.minkh.app.dto.engraving.request.Elixir;
+import me.minkh.app.dto.engraving.request.ElixirDto;
 import me.minkh.app.dto.engraving.CombatAttributeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ class ElixirConverterTest {
 
     void extracted(int headOffensePower, double attackIncrease) {
         // given
-        Elixir elixir = new Elixir("회심", 0, headOffensePower);
+        ElixirDto elixir = new ElixirDto("회심", 0, headOffensePower);
 
         // when
         CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
@@ -43,7 +43,7 @@ class ElixirConverterTest {
     @Test
     void vanguard35() {
         // given
-        Elixir elixir = new Elixir("선봉대", 35, 3);
+        ElixirDto elixir = new ElixirDto("선봉대", 35, 3);
 
         // when
         CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
@@ -56,7 +56,7 @@ class ElixirConverterTest {
     @Test
     void vanguard40() {
         // given
-        Elixir elixir = new Elixir("선봉대", 40, 5);
+        ElixirDto elixir = new ElixirDto("선봉대", 40, 5);
 
         // when
         CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
@@ -69,7 +69,7 @@ class ElixirConverterTest {
     @Test
     void expert35() {
         // given
-        Elixir elixir = new Elixir("달인", 35, 3);
+        ElixirDto elixir = new ElixirDto("달인", 35, 3);
 
         // when
         CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);
@@ -83,7 +83,7 @@ class ElixirConverterTest {
     @Test
     void expert40() {
         // given
-        Elixir elixir = new Elixir("달인", 40, 3);
+        ElixirDto elixir = new ElixirDto("달인", 40, 3);
 
         // when
         CombatAttributeDto combatAttributeDto = elixirConverter.convert(elixir);

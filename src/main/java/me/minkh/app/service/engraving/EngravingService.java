@@ -2,10 +2,10 @@ package me.minkh.app.service.engraving;
 
 import lombok.RequiredArgsConstructor;
 import me.minkh.app.domain.engraving.CombatAttribute;
+import me.minkh.app.dto.engraving.CombatAttributeDto;
+import me.minkh.app.dto.engraving.request.EngravingDto;
 import me.minkh.app.dto.engraving.request.EngravingSetupRequest;
 import me.minkh.app.dto.engraving.response.EngravingCalcResponse;
-import me.minkh.app.dto.engraving.request.Engraving;
-import me.minkh.app.dto.engraving.CombatAttributeDto;
 import me.minkh.app.service.engraving.converter.*;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +46,9 @@ public class EngravingService {
         );
     }
 
-    private double getAttackIncrease(List<Engraving> engravings) {
+    private double getAttackIncrease(List<EngravingDto> engravings) {
         int level = 0;
-        for (Engraving engraving : engravings) {
+        for (EngravingDto engraving : engravings) {
             String name = engraving.getName();
             if (name.equals(CURSED_DOLL)) {
                 level = engraving.getLevel();

@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Elixir {
+public class EngravingDto {
 
-    private String type;
+    private String name;
 
     private int level;
-
-    private int headOffensePower;
 }
