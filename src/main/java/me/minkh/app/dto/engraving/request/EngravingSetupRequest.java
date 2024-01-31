@@ -1,5 +1,7 @@
 package me.minkh.app.dto.engraving.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import me.minkh.app.domain.engraving.preset.CombatStat;
 import me.minkh.app.domain.engraving.preset.Engraving;
@@ -7,6 +9,8 @@ import me.minkh.app.domain.engraving.preset.Preset;
 
 import java.util.List;
 
+@AllArgsConstructor
+@Builder
 @Data
 public class EngravingSetupRequest {
 
