@@ -10,11 +10,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/engravings")
 public class EngravingController {
 
     private final EngravingService engravingService;
 
-    @PostMapping("/calc/engravings")
+    @PostMapping("/calc")
     public List<CalcEngravingResponse> calcEngravings(@RequestBody CalcEngravingRequest requestDto) {
         return this.engravingService.calcEngravings(requestDto);
     }
