@@ -2,8 +2,8 @@ package me.minkh.app.service.engraving;
 
 import lombok.RequiredArgsConstructor;
 import me.minkh.app.domain.engraving.CombatAttribute;
-import me.minkh.app.dto.engraving.request.CalcEngravingRequest;
-import me.minkh.app.dto.engraving.response.CalcEngravingResponse;
+import me.minkh.app.dto.engraving.request.EngravingSetupRequest;
+import me.minkh.app.dto.engraving.response.EngravingCalcResponse;
 import me.minkh.app.dto.engraving.request.Engraving;
 import me.minkh.app.dto.engraving.CombatAttributeDto;
 import me.minkh.app.service.engraving.converter.*;
@@ -23,7 +23,7 @@ public class EngravingService {
     private final EngravingsConverter engravingsConverter;
     private final EtcConverter etcConverter;
 
-    public List<CalcEngravingResponse> calcEngravings(CalcEngravingRequest dto) {
+    public List<EngravingCalcResponse> calcEngravings(EngravingSetupRequest dto) {
         List<CombatAttributeDto> combatAttributeDtos = List.of(
                 artifactConverter.convert(dto.getArtifact()),
                 elixirConverter.convert(dto.getElixir()),
@@ -40,9 +40,9 @@ public class EngravingService {
         double attackIncrease = this.getAttackIncrease(dto.getEngravings());
 
         return List.of(
-                new CalcEngravingResponse(SHARP_BLUNT, combatAttribute.calcSharpBlunt()),
-                new CalcEngravingResponse(BLITZ_COMMANDER, combatAttribute.calcBlitzCommander()),
-                new CalcEngravingResponse(CURSED_DOLL, combatAttribute.calcCursedDoll(attackIncrease))
+                new EngravingCalcResponse(SHARP_BLUNT, combatAttribute.calcSharpBlunt()),
+                new EngravingCalcResponse(BLITZ_COMMANDER, combatAttribute.calcBlitzCommander()),
+                new EngravingCalcResponse(CURSED_DOLL, combatAttribute.calcCursedDoll(attackIncrease))
         );
     }
 

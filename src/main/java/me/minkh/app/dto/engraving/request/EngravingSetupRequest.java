@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CalcEngravingRequest {
+public class EngravingSetupRequest {
 
     private String artifact;
 
