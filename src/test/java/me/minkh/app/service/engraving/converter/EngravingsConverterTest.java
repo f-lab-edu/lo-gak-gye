@@ -1,7 +1,7 @@
 package me.minkh.app.service.engraving.converter;
 
 import me.minkh.app.dto.engraving.CombatAttributeDto;
-import me.minkh.app.dto.engraving.request.Engraving;
+import me.minkh.app.dto.engraving.request.EngravingDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -30,7 +30,7 @@ class EngravingsConverterTest {
     @DisplayName("저주받은 인형 0, 아드레날린 0 = 0.0")
     void test(int cursedDollLevel, int adrenalineLevel, double expectedAttackIncrease) {
         // given
-        List<Engraving> engravings = getEngravings(cursedDollLevel, adrenalineLevel);
+        List<EngravingDto> engravings = getEngravings(cursedDollLevel, adrenalineLevel);
 
         // when
         CombatAttributeDto combatAttributeDto = engravingsConverter.convert(engravings);
@@ -44,7 +44,7 @@ class EngravingsConverterTest {
     @DisplayName("아드레날린 레벨에 따른 치명타 적중률")
     void test2(int level) {
         // given
-        List<Engraving> engravings = getEngravings(0, level);
+        List<EngravingDto> engravings = getEngravings(0, level);
 
         // when
         CombatAttributeDto combatAttributeDto = engravingsConverter.convert(engravings);
@@ -78,7 +78,7 @@ class EngravingsConverterTest {
         );
     }
 
-    private List<Engraving> getEngravings(int adrenalineLevel, int expectedAttackIncrease) {
-        return List.of(new Engraving(CURSED_DOLL, adrenalineLevel), new Engraving(ADRENALINE, expectedAttackIncrease));
+    private List<EngravingDto> getEngravings(int adrenalineLevel, int expectedAttackIncrease) {
+        return List.of(new EngravingDto(CURSED_DOLL, adrenalineLevel), new EngravingDto(ADRENALINE, expectedAttackIncrease));
     }
 }

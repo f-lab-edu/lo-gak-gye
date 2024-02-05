@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class CalcEngravingResponse {
+public class EngravingCalcResponse {
 
     private String name;
 

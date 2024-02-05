@@ -14,7 +14,7 @@ import java.util.Map;
 public class AccountAdapter implements OAuth2User, UserDetails {
 
     private final Account account;
-    private OAuth2User oAuth2User;
+    private transient Map<String, Object> attributes;
 
     public AccountAdapter(Account account) {
         this.account = account;
@@ -22,14 +22,14 @@ public class AccountAdapter implements OAuth2User, UserDetails {
 
     public AccountAdapter(Account account, OAuth2User oAuth2User) {
         this.account = account;
-        this.oAuth2User = oAuth2User;
+        this.attributes = oAuth2User.getAttributes();
     }
 
     // OAuth2User
 
     @Override
     public Map<String, Object> getAttributes() {
-        return this.oAuth2User.getAttributes();
+        return this.attributes;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class AccountAdapter implements OAuth2User, UserDetails {
 
     @Override
     public String getName() {
-        return this.oAuth2User.getAttribute("name");
+        return this.getAttribute("name");
     }
 
     // UserDetails

@@ -2,7 +2,7 @@ package me.minkh.app.service.engraving.converter;
 
 import lombok.RequiredArgsConstructor;
 import me.minkh.app.dto.engraving.CombatAttributeDto;
-import me.minkh.app.dto.engraving.request.Elixir;
+import me.minkh.app.dto.engraving.request.ElixirDto;
 import me.minkh.app.service.engraving.converter.strategy.elixir.ElixirConverterStrategy;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class ElixirConverter {
 
     private final List<ElixirConverterStrategy> strategies;
 
-    public CombatAttributeDto convert(Elixir elixir) {
+    public CombatAttributeDto convert(ElixirDto elixir) {
         CombatAttributeDto result = new CombatAttributeDto();
         int headOffensePower = elixir.getHeadOffensePower();
         result.setAttackIncrease(ELIXIR_TO_ATTACK_INCREASE_MAP.get(headOffensePower));
