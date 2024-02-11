@@ -94,7 +94,7 @@ jobs:
           script: |
             cd /home/ec2-user
             docker-compose pull
-            docker-compose up -d
+            docker-compose up -d app1 app2
             docker image prune -a -f
 
       # GitHub Actions VM 환경의 IP를 인바운드 규칙에서 제거한다.
