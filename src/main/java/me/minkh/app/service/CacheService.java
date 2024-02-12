@@ -23,8 +23,7 @@ public class CacheService {
     private final RedisTemplate<String, String> redisTemplate;
 
     public <T> T getCache(String cacheKey, TypeReference<T> typeReference) throws JsonProcessingException {
-        ValueOperations<String, String> valueOps = getValueOps();
-        String cacheValue = valueOps.get(cacheKey);
+        String cacheValue = this.getCacheValue(cacheKey);
         if (cacheValue == null) {
             return null;
         }
@@ -32,8 +31,7 @@ public class CacheService {
     }
 
     public <T> T getCache(String cacheKey, Class<T> classType) throws JsonProcessingException {
-        ValueOperations<String, String> valueOps = getValueOps();
-        String cacheValue = valueOps.get(cacheKey);
+        String cacheValue = this.getCacheValue(cacheKey);
         if (cacheValue == null) {
             return null;
         }
@@ -42,11 +40,16 @@ public class CacheService {
 
     public void setCache(String cacheKey, Object response) throws JsonProcessingException {
         String cacheValue = this.objectMapper.writeValueAsString(response);
-        ValueOperations<String, String> valueOps = getValueOps();
+        ValueOperations<String, String> valueOps = this.getValueOps();
         valueOps.set(cacheKey, cacheValue, this.timeout, TimeUnit.SECONDS);
     }
 
     private ValueOperations<String, String> getValueOps() {
         return redisTemplate.opsForValue();
+    }
+
+    private String getCacheValue(String cacheKey) {
+        ValueOperations<String, String> valueOps = this.getValueOps();
+        return valueOps.get(cacheKey);
     }
 }
