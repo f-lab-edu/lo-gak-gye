@@ -1,6 +1,5 @@
 package me.minkh.app.exception.advice;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import me.minkh.app.exception.CharacterNotFoundException;
 import me.minkh.app.exception.ErrorResponse;
@@ -15,12 +14,6 @@ import org.springframework.web.client.HttpClientErrorException;
 @Slf4j
 @RestControllerAdvice
 public class ControllerAdvice {
-
-    @ExceptionHandler(JsonProcessingException.class)
-    public ResponseEntity<ErrorResponse> jsonProcessingException(JsonProcessingException e) {
-        log.error("jsonProcessingException", e);
-        return this.exceptionHandler(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-    }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> runtimeExceptionHandler(RuntimeException e) {
