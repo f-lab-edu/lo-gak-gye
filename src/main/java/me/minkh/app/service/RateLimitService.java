@@ -20,6 +20,7 @@ public class RateLimitService {
     public boolean isLimit(String key) {
         ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
         Long count = valueOps.increment(key);
+        log.info("count = {}", count);
         if (count == null) {
             throw new IllegalArgumentException(key + "는 올바르지 않은 요청입니다.");
         }
