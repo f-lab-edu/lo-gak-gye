@@ -3,6 +3,7 @@ package me.minkh.app.exception.advice;
 import lombok.extern.slf4j.Slf4j;
 import me.minkh.app.exception.CharacterNotFoundException;
 import me.minkh.app.exception.ErrorResponse;
+import me.minkh.app.exception.TooManyRequestsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,6 +20,12 @@ public class ControllerAdvice {
     public ResponseEntity<ErrorResponse> runtimeExceptionHandler(RuntimeException e) {
         log.error("runtimeExceptionHandler", e);
         return this.exceptionHandler(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+
+    @ExceptionHandler(TooManyRequestsException.class)
+    public ResponseEntity<ErrorResponse> tooManyRequestsExceptionHandler(TooManyRequestsException e) {
+        log.error("tooManyRequestsExceptionHandler", e);
+        return this.exceptionHandler(e, HttpStatus.TOO_MANY_REQUESTS, e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
